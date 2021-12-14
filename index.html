@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/myStyle.css">
+<!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -219,9 +220,9 @@
             <div class="row clearfix">
                 <!--                栏目1-->
                 <div class="col-md-6  col-lg-6 column ">
-                    <p class="my-title">栏目1</p>
-                    <ul class="nav nav-tabs" style="background-color: #DDFFFF">
-                        <li id="channel-1" class="active"><a href="#">子栏目1</a></li>
+                    <p class="my-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
+                    <ul class="nav nav-tabs " style="background-color: #DDFFFF">
+                        <li id="channel-1" class="active "><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -253,7 +254,7 @@
                 </div>
                 <!--                栏目2-->
                 <div class="col-md-6 col-lg-6 column ">
-                    <p class="my-title">栏目2</p>
+                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
                     <ul class="nav nav-tabs" style="background-color: #DDFFFF">
                         <li id="channel-2" class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -289,7 +290,7 @@
             <div class="row clearfix">
                 <!--            栏目3-->
                 <div class="col-md-6  col-lg-6 column ">
-                    <p class="my-title">栏目3</p>
+                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目3</p>
                     <ul class="nav nav-tabs" style="background-color: #DDFFFF">
                         <li id="channel-3" class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -323,7 +324,7 @@
                 </div>
                 <!--            栏目4-->
                 <div class="col-md-6 col-lg-6 column ">
-                    <p class="my-title">栏目4</p>
+                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
                     <ul class="nav nav-tabs" style="background-color: #DDFFFF">
                         <li id="channel-4" class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -360,7 +361,7 @@
                 <!--                        栏目5-->
                 <div class="col-md-6  col-lg-6 column ">
 
-                    <p class="my-title">栏目5</p>
+                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
                     <ul class="nav nav-tabs" style="background-color: #DDFFFF">
                         <li id="channel-5" class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -394,7 +395,7 @@
                 </div>
                 <!--                栏目6-->
                 <div class="col-md-6 col-lg-6 column">
-                    <p class="my-title">栏目6</p>
+                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
                     <ul class="nav nav-tabs" style="background-color: #DDFFFF">
                         <li id="channel-6" class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -440,32 +441,20 @@
 <!--    <p>导航链接：</p>-->
     <div class="row clearfix">
         <div class="col-lg-1 col-md-1">
-            <p>链接导航</p>
+<!--            <p>链接导航</p>-->
         </div>
         <div class="col-lg-2 col-md-2">
-            <div class="dropdown">
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">银保监会网站
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    &#12288;银保监会网站&#12288;
                     <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
-                    <div class="dropup">
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="http://10.1.3.101/">银保监会内网</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="http://10.1.3.67/">银保监会内网（旧）</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="http://10.1.3.15">内网邮件系统</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="http://10.1.3.58/zh-hans/default.htm">总会防病毒网站</a>
-                        </li>
-                        <li role="presentation">
-                            <a role="menuitem" tabindex="-1" href="http://10.1.3.67/upPass/uppass.jsp">综合办公平台密码修改</a>
-                        </li>
-                    </div>
-
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://10.1.3.101/">银保监会内网</a></li>
+                    <li><a href="http://10.1.3.67/">银保监会内网（旧）</a></li>
+                    <li><a href="http://10.1.3.15">内网邮件系统</a></li>
+                    <li><a href="http://10.1.3.58/zh-hans/default.htm"> 总会防病毒网站</a></li>
+                    <li><a href="http://10.1.3.67/upPass/uppass.jsp">综合办公平台密码修改</a></li>
                 </ul>
             </div>
         </div>
@@ -485,14 +474,70 @@
                     <li><a href="http://10.1.2.12/IMIS/login/login.html">金融机构及市场准入管理系统</a></li>
                     <li><a href="http://10.1.17.51:9080/licence/">法规信息管理系统</a></li>
                     <li><a href="http://10.1.17.120/foreground/index.do">银行监管业务知识学习考试平台</a></li>
-                    <li><a href="http://10.1.5.82:7001/system/user/login.do">多媒体录播服务器</a></li>
+                    <li><a href="http://10.1.4.30/">多媒体录播服务器</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    云南局应用系统
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://10.128.12.70/">云南监管局内网</a></li>
+                    <li><a href="http://10.128.250.66:8091/">金融专网首页</a></li>
+                    <li><a href="http://10.128.250.67/YNYJJ/">双子星”平台</a></li>
+                    <li><a href="http://10.128.12.68:9900/YNYJJ/logon"> 信息科技监管数据平台</a></li>
+                    <li><a href="http://9.0.81.1:7001/shwebroot/index.do">人行企业信用信息基础数据库系统</a></li>
+                    <li><a href="http://10.128.12.196/NetCenter/zh-hans/default.htm">省局防病毒网站</a></li>
+                    <li><a href="http://10.128.12.102/index.php">省局在线考试系统</a></li>
+                    <li><a href="http://10.128.18.94/">多媒体发布平台</a></li>
+                    <li><a href="http://10.128.12.199:8012/">RTX即时通信平台</a></li>
 
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2"></div>
-        <div class="col-lg-2 col-md-2"></div>
-        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-2 col-md-2">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    &#12288;云南各分局 &#12288;
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://10.128.40.13/">曲靖监管分局</a></li>
+                    <li><a href="http://10.128.48.17/">玉溪监管分局</a></li>
+                    <li><a href="http://10.128.56.219/default.aspx">红河监管分局</a></li>
+                    <li><a href="http://10.128.64.21/"> 文山监管分局</a></li>
+                    <li><a href="http://10.128.72.2:8088/">普洱监管分局</a></li>
+                    <li><a href="http://10.128.80.32/">版纳监管分局</a></li>
+                    <li><a href="http://10.128.88.21/">楚雄监管分局</a></li>
+                    <li><a href="http://10.128.96.165/YNYJJ/welcome.jsp">大理监管分局</a></li>
+                    <li><a href="http://10.128.104.60:3861/">保山监管分局</a></li>
+                    <li><a href="http://10.128.120.20/YNYJJ/welcome.jsp">丽江监管分局</a></li>
+                    <li><a href="http://10.128.128.100/">怒江监管分局</a></li>
+                    <li><a href="http://10.128.136.121/">保山监管分局</a></li>
+                    <li><a href="http://10.128.144.68/YNYJJ/welcome.jsp">临沧监管分局</a></li>
+                    <li><a href="http://10.128.112.19/">德宏监管分局</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    &#12288;省外监管局 &#12288;
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="http://10.120.1.5/">重庆银监局</a></li>
+                    <li><a href="http://10.124.0.13/">贵州银监局</a></li>
+                    <li><a href="http://10.116.0.13/">四川监管局</a></li>
+                    <li><a href="http://10.52.8.106/"> 江苏监管局</a></li>
+                    <li><a href="http://10.52.98.1/">常州监管分局</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="col-lg-1 col-md-1"></div>
 
     </div>
