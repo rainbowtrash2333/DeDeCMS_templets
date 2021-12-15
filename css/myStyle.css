@@ -44,7 +44,8 @@ hr {
     font-size: 20px;
     font-weight: bold;
 }
-#nav-home,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7{
+
+.head-nav{
     font-size: 20px;
     font-weight: bold;
     text-shadow: 1px 1px 1px  rgb(2, 43, 14);

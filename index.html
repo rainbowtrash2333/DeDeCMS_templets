@@ -27,9 +27,31 @@
             background: url("images/back_img.jpg") repeat-x;
         }
     </style>
+    <script>
+        var top_channels = [
+            {name: "channel1", url: "http://baidu.com"},
+            {name: "channel2", url: "http://baidu.com"},
+            {name: "channel3", url: "http://baidu.com"},
+            {name: "channel4", url: "http://baidu.com"},
+        ];
 
+        $(document).ready(function () {
+            var txt = ""
+            top_channels.forEach(function (element) {
+
+                txt += "<li><a class=\"head-nav\" href=\""
+                    + element.url +
+                    "\">" + element.name +
+                    "</a></li>\n"
+
+            })
+
+            $("#my-nav").append(txt);
+        })
+    </script>
 </head>
 <body>
+
 <div class="jumbotron text-center  header-info">
     <div class="container ">
         <div class="row ">
@@ -72,27 +94,8 @@
     <div class="row clearfix">
         <div class="col-md-12  col-lg-12">
             <ul id="my-nav" class="nav nav-pills">
-                <li  class="active "><a id="nav-home" href="{dede:global.cfg_indexurl/}">主页</a></li>
-                <li>
-                    <a id="nav1" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a id="nav2" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a id="nav3" href="#"><span>test</span></a>
-                <li>
-                    <a id="nav4" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a id="nav5" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a id="nav6" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a id="nav7" href="#"><span>test</span></a>
-                </li>
+                <li class="active "><a id="nav-home" class="head-nav" href="{dede:global.cfg_indexurl/}">主页</a></li>
+
             </ul>
 
         </div>
@@ -244,7 +247,7 @@
                 <div id="channel-2" class="col-md-6 col-lg-6 column ">
                     <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
                     <ul class="nav nav-tabs">
-                        <li  class="active"><a href="#">子栏目1</a></li>
+                        <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -252,14 +255,14 @@
 
                         <a href="#" class="list-group-item">
                             <span class="badge badge-primary badge-date">11-11</span>
-                           test1 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                            test1 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
                         </a>
 
-                        <a href="#" class="list-group-item text-nowrap channel-text" >
+                        <a href="#" class="list-group-item text-nowrap channel-text">
                             <span class="badge badge-primary badge-date">11-11</span>
                             test2
                         </a>
-                        <a href="#" class="list-group-item text-nowrap channel-text" >
+                        <a href="#" class="list-group-item text-nowrap channel-text">
                             <span class="badge badge-primary badge-date">11-11</span>
                             test3
                         </a>
@@ -268,7 +271,7 @@
                             <span class="badge badge-primary badge-date">11-11</span>
                             test4
                         </a>
-                        <a href="#" class="list-group-item text-nowrap channel-text" >
+                        <a href="#" class="list-group-item text-nowrap channel-text">
                             <span class="badge badge-primary badge-date">11-11</span>
                             test5
                         </a>
@@ -279,8 +282,8 @@
                 <!--            栏目3-->
                 <div id="channel-3" class="col-md-6  col-lg-6 column ">
                     <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目3</p>
-                    <ul class="nav nav-tabs" >
-                        <li  class="active"><a href="#">子栏目1</a></li>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -314,7 +317,7 @@
                 <div id="channel-4" class="col-md-6 col-lg-6 column ">
                     <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
                     <ul class="nav nav-tabs">
-                        <li  class="active"><a href="#">子栏目1</a></li>
+                        <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -349,8 +352,8 @@
                 <!--                        栏目5-->
                 <div id="channel-5" class="col-md-6  col-lg-6 column ">
 
-                    <p  class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
-                    <ul class="nav nav-tabs" >
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
+                    <ul class="nav nav-tabs">
                         <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
@@ -382,7 +385,7 @@
                     </ul>
                 </div>
                 <!--                栏目6-->
-                <div id="channel-6"  class="col-md-6 col-lg-6 column">
+                <div id="channel-6" class="col-md-6 col-lg-6 column">
                     <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#">子栏目1</a></li>
@@ -419,24 +422,24 @@
 
         </div>
         <!--        侧栏-->
-        <div class="col-md-3  col-lg-3 column"  style="background: white;margin-top: 30px">
+        <div class="col-md-3  col-lg-3 column" style="background: white;margin-top: 30px">
             <div class="row clearfix" id="side-title">
                 <div class="col-md-6 ">
-                    <p class="text-left" >最新更新</p>
+                    <p class="text-left">最新更新</p>
 
                 </div>
                 <div class="col-md-6">
-<!--                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>-->
+                    <!--                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>-->
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12">
                     <ul id="side-content" class="list-group">
-                        <a class="list-group-item " href="#" >111 </a>
-                        <a class="list-group-item " href="#" >111</a>
-                        <a class="list-group-item " href="#" >111</a>
-                        <a class="list-group-item " href="#" >111</a>
-                        <a class="list-group-item " href="#" >111</a>
+                        <a class="list-group-item " href="#">111 </a>
+                        <a class="list-group-item " href="#">111</a>
+                        <a class="list-group-item " href="#">111</a>
+                        <a class="list-group-item " href="#">111</a>
+                        <a class="list-group-item " href="#">111</a>
                     </ul>
                 </div>
             </div>
