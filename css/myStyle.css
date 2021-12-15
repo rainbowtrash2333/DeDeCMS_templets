@@ -22,7 +22,7 @@ hr {
     background-color: #999999;
 }
 
-.p_header {
+#web-title, #web-title-en {
     text-shadow: 2px 2px 1px rgb(2, 43, 14);
     font-weight: 600;
     color: azure;
@@ -40,19 +40,27 @@ hr {
 }
 
 
-.nav-font-style {
+#nav >li>a{
     font-size: 20px;
     font-weight: bold;
 }
-
-p.my-title {
+#nav-home,#nav1,#nav2,#nav3,#nav4,#nav5,#nav6,#nav7{
     font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px  rgb(2, 43, 14);
+}
+
+p.Channel-title {
+    font-size: 20px;
+    font-weight: bold;
     color: #337AD9;
     border: 2px transparent;
     border-bottom-style: solid;
-    Padding: 5px 2em 14px 0;
+    Padding: 5px 0 10px 0;
+    margin-bottom: 20px;
     border-image: linear-gradient(to right, #0b5ed7, #EEEEEE 90%);
     border-image-slice: 10;
+    /*text-shadow: 0 1px  #0C2695;*/
 }
 
 .badge.badge-date {
@@ -98,38 +106,26 @@ img.shadow {
     background: #0583CA;
 }
 
-.side-title {
-    border-width: 0 0 1px 10px;
+#side-title {
+    border-width: 0 0 2px 13px;
     border-style: solid;
-    border-color: #0f75b2;
+    border-color: #337AD9;
     margin-bottom: 15px;
+    font-weight: bold;
+}
+#side-title p{
+    font-size: 20px;
+    margin: 2px 2px 0 0;
+    color: #337AD9;
 }
 
-.channel-text {
-    /*margin-right: ;*/
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-size: 18px;
-}
-
-p.channel-subchannel {
-    overflow: hidden;
-}
-
-.list-group > .list-group-item {
-    font-size: 16px;
-}
-
-.list-group > a {
+#channel-1 >.list-group > a, #channel-2 >.list-group > a, #channel-3 >.list-group > a, #channel-4 >.list-group > a, #channel-5 >.list-group > a, #channel-6 >.list-group > a{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 18px;
-}
-
-.nav-tabs a {
     font-size: 16px;
 }
+
 
 .nav-tabs {
     background-color: #DDFFFF
@@ -137,9 +133,9 @@ p.channel-subchannel {
 
 #side-content > .list-group-item {
     border-style: none none dotted none;
-    border-width: 2px;
-    border-bottom-color: #999999;
-    margin-top: 0;
-    padding-bottom: 0;
+    border-width: 1px;
+    border-bottom-color: #aaaabb;
+    margin-top: 1px;
+    padding-bottom: 1px;
 
 }

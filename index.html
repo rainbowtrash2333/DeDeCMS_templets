@@ -12,7 +12,7 @@
     <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    <!--[if lte IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
@@ -39,9 +39,9 @@
             </div>
             <div class="col-lg-7">
                 <div class="align-self-center mx-auto bg-white text-primary">
-                    <h2 class="p_header ">中国银行监督管理委员会 ● 昭通分局</h2>
+                    <h2 id="web-title">中国银行监督管理委员会 ● 昭通分局</h2>
                     <p></p>
-                    <h4 class="p_header ">China Banking Regulatory Commission, Zhaotong branch</h4>
+                    <h4 id="web-title-en">China Banking Regulatory Commission, Zhaotong branch</h4>
                 </div>
             </div>
 
@@ -71,28 +71,27 @@
     <!--    导航栏-->
     <div class="row clearfix">
         <div class="col-md-12  col-lg-12">
-            <ul class="nav nav-pills">
-                <li class="active nav-font-style"><a href="{dede:global.cfg_indexurl/}">主页</a></li>
+            <ul id="my-nav" class="nav nav-pills">
+                <li  class="active "><a id="nav-home" href="{dede:global.cfg_indexurl/}">主页</a></li>
                 <li>
-                    <a class="nav-font-style" id="nav1" href="#"><span>test</span></a>
+                    <a id="nav1" href="#"><span>test</span></a>
                 </li>
                 <li>
-                    <a class="nav-font-style" id="nav2" href="#"><span>test</span></a>
+                    <a id="nav2" href="#"><span>test</span></a>
                 </li>
                 <li>
-                    <a class="nav-font-style" id="nav3" href="#"><span>test</span></a>
+                    <a id="nav3" href="#"><span>test</span></a>
+                <li>
+                    <a id="nav4" href="#"><span>test</span></a>
                 </li>
                 <li>
-                    <a class="nav-font-style" id="nav4" href="#"><span>test</span></a>
+                    <a id="nav5" href="#"><span>test</span></a>
                 </li>
                 <li>
-                    <a class="nav-font-style" id="nav5" href="#"><span>test</span></a>
+                    <a id="nav6" href="#"><span>test</span></a>
                 </li>
                 <li>
-                    <a class="nav-font-style" id="nav6" href="#"><span>test</span></a>
-                </li>
-                <li>
-                    <a class="nav-font-style" id="nav7" href="#"><span>test</span></a>
+                    <a id="nav7" href="#"><span>test</span></a>
                 </li>
             </ul>
 
@@ -161,7 +160,7 @@
                 </div>
                 <!--                文章列表1-->
                 <div class="col-lg-6 col-md-6 col-sm-6 border1 ">
-                    <p class="my-title"><span class="glyphicon glyphicon-th-list"></span> 领导活动</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-th-list"></span> 领导活动</p>
                     <ul id="article-list-1" class="list-group">
 
                         <a href="#" class="list-group-item " style="font-size: 16px">
@@ -208,10 +207,10 @@
         <div class="col-md-9  col-lg-9 column">
             <div class="row clearfix">
                 <!--                栏目1-->
-                <div class="col-md-6  col-lg-6 column ">
-                    <p class="my-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
+                <div id="channel-1" class="col-md-6  col-lg-6 column ">
+                    <p class="Channel-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
                     <ul class="nav nav-tabs ">
-                        <li id="channel-1" class="active "><a href="#">子栏目1</a></li>
+                        <li class="active "><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -243,7 +242,7 @@
                 </div>
                 <!--                栏目2-->
                 <div id="channel-2" class="col-md-6 col-lg-6 column ">
-                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
                     <ul class="nav nav-tabs">
                         <li  class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -279,7 +278,7 @@
             <div class="row clearfix">
                 <!--            栏目3-->
                 <div id="channel-3" class="col-md-6  col-lg-6 column ">
-                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目3</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目3</p>
                     <ul class="nav nav-tabs" >
                         <li  class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -312,10 +311,10 @@
                     </ul>
                 </div>
                 <!--            栏目4-->
-                <div class="col-md-6 col-lg-6 column ">
-                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
+                <div id="channel-4" class="col-md-6 col-lg-6 column ">
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
                     <ul class="nav nav-tabs">
-                        <li id="channel-4" class="active"><a href="#">子栏目1</a></li>
+                        <li  class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -348,11 +347,11 @@
             </div>
             <div class="row clearfix">
                 <!--                        栏目5-->
-                <div class="col-md-6  col-lg-6 column ">
+                <div id="channel-5" class="col-md-6  col-lg-6 column ">
 
-                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
+                    <p  class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
                     <ul class="nav nav-tabs" >
-                        <li id="channel-5" class="active"><a href="#">子栏目1</a></li>
+                        <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -383,10 +382,10 @@
                     </ul>
                 </div>
                 <!--                栏目6-->
-                <div class="col-md-6 col-lg-6 column">
-                    <p class="my-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
+                <div id="channel-6"  class="col-md-6 col-lg-6 column">
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
                     <ul class="nav nav-tabs">
-                        <li id="channel-6" class="active"><a href="#">子栏目1</a></li>
+                        <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
                     </ul>
@@ -421,20 +420,19 @@
         </div>
         <!--        侧栏-->
         <div class="col-md-3  col-lg-3 column"  style="background: white;margin-top: 30px">
-            <div class="row clearfix side-title">
+            <div class="row clearfix" id="side-title">
                 <div class="col-md-6 ">
-                    <p class="text-left text-primary" style="font-size: 20px; margin: 2px 2px 0 0">最新更新</p>
+                    <p class="text-left" >最新更新</p>
 
                 </div>
                 <div class="col-md-6">
-                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>
+<!--                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>-->
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12">
                     <ul id="side-content" class="list-group">
-
-                            <a class="list-group-item " href="#" >111 </a>
+                        <a class="list-group-item " href="#" >111 </a>
                         <a class="list-group-item " href="#" >111</a>
                         <a class="list-group-item " href="#" >111</a>
                         <a class="list-group-item " href="#" >111</a>
