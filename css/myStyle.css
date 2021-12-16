@@ -107,14 +107,14 @@ img.shadow {
     background: #0583CA;
 }
 
-#side-title {
+.side-title {
     border-width: 0 0 2px 13px;
     border-style: solid;
     border-color: #337AD9;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: bold;
 }
-#side-title p{
+.side-title p{
     font-size: 20px;
     margin: 2px 2px 0 0;
     color: #337AD9;
@@ -132,11 +132,11 @@ img.shadow {
     background-color: #DDFFFF
 }
 
-#side-content > .list-group-item {
+#side-newest-content > .list-group-item {
     border-style: none none dotted none;
     border-width: 1px;
     border-bottom-color: #aaaabb;
-    margin-top: 1px;
+    margin-top: 5px;
     padding-bottom: 1px;
 
 }

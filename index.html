@@ -29,10 +29,10 @@
     </style>
     <script>
         var top_channels = [
-            {name: "channel1", url: "http://baidu.com"},
-            {name: "channel2", url: "http://baidu.com"},
-            {name: "channel3", url: "http://baidu.com"},
-            {name: "channel4", url: "http://baidu.com"},
+            {name: "channel1", url: "https://baidu.com"},
+            {name: "channel2", url: "https://baidu.com"},
+            {name: "channel3", url: "https://baidu.com"},
+            {name: "channel4", url: "https://baidu.com"},
         ];
 
         $(document).ready(function () {
@@ -95,7 +95,6 @@
         <div class="col-md-12  col-lg-12">
             <ul id="my-nav" class="nav nav-pills">
                 <li class="active "><a id="nav-home" class="head-nav" href="{dede:global.cfg_indexurl/}">主页</a></li>
-
             </ul>
 
         </div>
@@ -216,6 +215,7 @@
                         <li class="active "><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
                         <li><a href="#">子栏目3</a></li>
+
                     </ul>
                     <ul class="list-group">
 
@@ -423,8 +423,10 @@
         </div>
         <!--        侧栏-->
         <div class="col-md-3  col-lg-3 column" style="background: white;margin-top: 30px">
-            <div class="row clearfix" id="side-title">
+            <br>
+            <div class="row clearfix side-title" id="side-newest" >
                 <div class="col-md-6 ">
+
                     <p class="text-left">最新更新</p>
 
                 </div>
@@ -434,12 +436,30 @@
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12">
-                    <ul id="side-content" class="list-group">
+                    <ul id="side-newest-content" class="list-group">
                         <a class="list-group-item " href="#">111 </a>
                         <a class="list-group-item " href="#">111</a>
                         <a class="list-group-item " href="#">111</a>
                         <a class="list-group-item " href="#">111</a>
                         <a class="list-group-item " href="#">111</a>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="row clearfix side-title" id="side-channel">
+                <div class="col-md-12">
+                    <p class="text-left">
+                        所有栏目
+                    </p>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-md-12 col-lg-12">
+                    <ul id="side-channel-content" class="list-group">
+                        <a class="list-group-item" href="#">channel 1</a>
+                        <a class="list-group-item" href="#">channel 2</a>
+                        <a class="list-group-item" href="#">channel 3</a>
+                        <a class="list-group-item" href="#">channel 4</a>
                     </ul>
                 </div>
             </div>
