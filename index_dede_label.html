@@ -7,88 +7,46 @@
     <meta name="author" content="Twikura.com">
     <title>index</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/myStyle.css">
     <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lte IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/html5shiv.min.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/respond.min.js"></script>
     <![endif]-->
-    <script src="js/jquery.min.1.9.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/jquery.min.1.9.1.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/bootstrap.min.js"></script>
     <style>
         .header-info {
             margin: 0;
             width: 100%;
             /*height: auto;*/
             background-size: 100% auto;
-            background: url("images/back_img.jpg") repeat-x;
+            background: url("{dede:global.cfg_templets_skin/}/images/back_img.jpg") repeat-x;
         }
     </style>
     <script>
         var top_channels = [
-            {name: "channel1", url: "https://baidu.com"},
-            {name: "channel2", url: "https://baidu.com"},
-            {name: "channel3", url: "https://baidu.com"},
-            {name: "channel4", url: "https://baidu.com"},
+            {dede:channel type='top' row='10' currentstyle="<li class='thisclass'><a href='~typelink~'>~typename~</a> </li>"}
+            {name: "[field:typename/]", url: "[field:typelink/]"},
+            {/dede:channel}
         ];
-        var Carousel=[
-            {src:"",alt:"11",href:"#"},
-            {src:"",alt:"22",href:"#"},
-            {src:"",alt:"33",href:"#"},
-            {src:"",alt:"44",href:"#"},
-            {src:"",alt:"55",href:"#"},
-        ]
-        // 绑定数据
+
         $(document).ready(function () {
-            // 绑定导航栏
-            let txt = "";
+            var txt = ""
             top_channels.forEach(function (element) {
 
-                txt += "<li><a class=\"head-nav\" href=\"" +
+                txt += "<li><a class=\"head-nav\" href=\""
                     + element.url +
                     "\">" + element.name +
                     "</a></li>\n"
 
             })
+
             $("#my-nav").append(txt);
-            //绑定轮播
-            txt = "";
-            var i = 0
-            Carousel.forEach(function (element){
-                if(i ===0){
-                    txt += " <div class=\"item active\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\""+
-                        element.src+
-                        "\" alt=\""+
-                        element.alt+
-                        "\" href=\""+
-                        element.href+
-                        "\"> <div class=\"carousel-caption\"><h4>"+
-                        element.alt+
-                        "</h4><br><br></div></div> \n"
-                }else{
-                    txt += " <div class=\"item\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\""+
-                        element.src+
-                        "\" alt=\""+
-                        element.alt+
-                        "\" href=\""+
-                        element.href+
-                        "\"> <div class=\"carousel-caption\"><h4>"+
-                        element.alt+
-                        "</h4><br><br></div></div> \n"
-                }
-               i+=1
-
-            })
-            // console.log(txt)
-            $("#myCarousel-img").prepend(txt);
-            // console.log($("#myCarousel-img:first-child").attr("class"))
         })
-
     </script>
 </head>
 <body>
@@ -97,7 +55,7 @@
     <div class="container ">
         <div class="row ">
             <div class="col-lg-1">
-                <img width="100" src="images/CBIRC.png" class="rounded float-right"
+                <img width="100" src="{dede:global.cfg_templets_skin/}/images/CBIRC.png" class="rounded float-right"
                      alt="CIRC">
             </div>
             <div class="col-lg-7">
@@ -161,39 +119,29 @@
                             <li data-target="#myCarousel" data-slide-to="4"></li>
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
-                        <div id ="myCarousel-img" class="carousel-inner" >
+                        <div class="carousel-inner" style="height: 339px">
 
-<!--                            <div class="item active">-->
-<!--                                    <img id="carousel1" class="img-rounded CarouselImg" src="" alt="" href="#">-->
-<!--                                <div class="carousel-caption"></div>-->
-<!--                            </div>-->
+                            <div class="item active">
+                                <img id="carousel1" class="img-rounded CarouselImg" src="" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
 
-<!--                            <div class="item">-->
-<!--                                    <img id="carousel2" class="CarouselImg" src="" alt="">-->
-<!--                                <div class="carousel-caption">-->
-<!--                                        <h4>-->
-<!--                                            First Thumbnail label-->
-<!--                                        </h4>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="item">-->
-<!--                                <a href="#">-->
-<!--                                    <img id="carousel3" class="CarouselImg" src="" alt="">-->
-<!--                                </a>-->
-<!--                                <div class="carousel-caption"></div>-->
-<!--                            </div>-->
-<!--                            <div class="item">-->
-<!--                                <a href="#">-->
-<!--                                    <img id="carousel4" class="CarouselImg" src="" alt="">-->
-<!--                                </a>-->
-<!--                                <div class="carousel-caption"></div>-->
-<!--                            </div>-->
-<!--                            <div class="item">-->
-<!--                                <a href="#">-->
-<!--                                    <img id="carousel5" class="CarouselImg" src="" alt="">-->
-<!--                                </a>-->
-<!--                                <div class="carousel-caption"></div>-->
-<!--                            </div>-->
+                            <div class="item">
+                                <img id="carousel2" class="CarouselImg" src="" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
+                            <div class="item">
+                                <img id="carousel3" class="CarouselImg" src="" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
+                            <div class="item">
+                                <img id="carousel4" class="CarouselImg" src="" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
+                            <div class="item">
+                                <img id="carousel5" class="CarouselImg" src="" alt="">
+                                <div class="carousel-caption"></div>
+                            </div>
                             <!-- 轮播（Carousel）导航 -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -475,7 +423,7 @@
         <!--        侧栏-->
         <div class="col-md-3  col-lg-3 column" style="background: white;margin-top: 30px">
             <br>
-            <div class="row clearfix side-title" id="side-newest">
+            <div class="row clearfix side-title" id="side-newest" >
                 <div class="col-md-6 ">
 
                     <p class="text-left">最新更新</p>
@@ -627,6 +575,5 @@
 <div class="feet-box">
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021 Modify 中国银行保险监督管理委员会昭通监管分局</p>
 </div>
-
 </body>
 </html>
