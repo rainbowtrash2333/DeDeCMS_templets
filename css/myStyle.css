@@ -148,6 +148,7 @@ img.shadow {
     width: 12%;
     max-width: 350px;
     min-width: 200px;
+    z-index: 10;
 }
 /*.sticky-bar a {*/
 /*    display: block;			!* 将<a>标签设为块元素，用于美化样式 *!*/
