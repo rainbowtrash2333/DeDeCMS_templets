@@ -27,17 +27,6 @@
             background-size: 100% auto;
             background: url("images/back_img.jpg") repeat-x;
         }
-        .content .sidebar {
-            width: 20%;
-            height: 66px;
-            margin: 10px;
-            margin-right: 0;
-            border: 1px solid red;
-            float: right;
-            overflow: hidden;
-            font-family: sans-serif;
-            color: #FFF;
-        }
     </style>
     <script>
         var top_channels = [
@@ -583,8 +572,18 @@
         </div>
 
     </div>
+<!--    广告栏-->
+    <div class="sticky-bar">
+        <button type="button" id="hide" class="btn btn-default btn-xs pull-right" >
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <a  href="#"><img class="img-thumbnail" id="sticky-ad.jpg" src="images/sticky-ad.jpg" alt=""></a>
+    </div>
 </div>
 <hr style="   height: 1px;border: none; background-color: #CCCCCC">
+
+
+
 <div class="container">
     <!--    <p>导航链接：</p>-->
     <div class="row clearfix">
@@ -696,9 +695,7 @@
 
 
 <script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $(".sidebar").stick_in_parent();
-    });
+
 </script>
 </body>
 </html>
