@@ -29,125 +29,146 @@
         }
     </style>
     <script>
-        var top_channels = [
-            {dede:channel type='top' row='10'}
-            {name: "[field:typename/]", url: "[field:typelink/]"},
-            {/dede:channel}
-        ];
-        var Carousel = [
-            {dede:arclist flag='' type='image' row='5' titlelen='70'}
-            {src: "[field:litpic/]", alt: "[field:fulltitle/]", href: "[field:litpic/]"},
-            {/dede:arclist}
-        ]
+        // 设置频道名称
+        function setChannelName(){
 
-        //督查督办
-        var sub_channel_1=[
-            {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='14' flag=''}
-            {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
-            {/dede:arclist}
-        ]
-        //通报点评
-        var sub_channel_2=[
-            {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='15' flag=''}
-            {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
-            {/dede:arclist}
-        ]
-        //公告通知
-        var sub_channel_3=[
-            {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='16' flag=''}
-            {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
-            {/dede:arclist}
-        ]
-
-        function genSubChannelData(sub_list){
-            let txt = "";
-            sub_list.forEach(function (element){
-                txt += "                       <a href=\"" + element.href+
-                    "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
-                    "<span class=\"badge badge-primary badge-date\">" + element.date+
-                    "</span>\n" + element.name+ "\n" + " </a>\n"
+            var channel_id2name = [
+                [$('#channel-1'), "党风廉政建设"],
+                [$('#channel-2'), "党史学习"],
+                [$('#channel-3'), "重点工作实践"],
+                [$('#channel-4'), "统计"],
+                [$('#channel-5'), "组织人事"],
+                [$('#channel-6'), "职工之家"],
+            ]
+            channel_id2name.forEach(function (element){
+                // console.log( element[0].children("p").text());
+                element[0].children("p").text(element[1])
             })
-            console.log(txt);
-            return txt
-        }
-
-        // 绑定数据
-        function setChannelData(channel_id, child_name) {
-
-            let txt = "";
-            console.log();
-            channels_dict[channel_map.get(channel_id)][child_name].forEach(function (element) {
-                txt += "                       <a href=\"" + element.href+
-                    "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
-                    "<span class=\"badge badge-primary badge-date\">" + element.date+
-                    "</span>\n" + element.name+ "\n" + " </a>\n"
-            })
-            return txt
 
         }
-
-        $(document).ready(function () {
-            // 绑定导航栏
+        // 绑定导航栏
+        function bind_nav(){
+            var top_channels = [
+                {dede:channel type='top' row='10'}
+                {name: "[field:typename/]", url: "[field:typelink/]"},
+                {/dede:channel}
+            ];
             let txt = "";
             top_channels.forEach(function (element) {
-                console.log(element.href)
-                txt += " <li><a class=\"head-nav\" href=\"" +element.url+ "\">" +element.name+ "</a></li>"
+                txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
             })
             $("#my-nav").append(txt);
+        }
             //绑定轮播
-            txt = "";
-            var i = 0
-            Carousel.forEach(function (element) {
-                if (i === 0) {
-                    txt += " <div class=\"item active\">\n" +
-                        " <img class=\" img-rounded \" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                } else {
-                    txt += " <div class=\"item\">\n" +
-                        " <img class=\" img-rounded \" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                }
-                i += 1
+            function bind_carousel(){
+                var Carousel = [
+                    {dede:arclist flag='' type='image' row='5' titlelen='70'}
+                    {src: "[field:litpic/]", alt: "[field:fulltitle/]", href: "[field:litpic/]"},
+                    {/dede:arclist}
+                ]
+                txt = "";
+                var i = 0
+                Carousel.forEach(function (element) {
+                    if (i === 0) {
+                        txt += " <div class=\"item active\">\n" +
+                            " <img class=\"img-rounded CarouselImg\" src=\"" +
+                            element.src +
+                            "\" alt=\"" +
+                            element.alt +
+                            "\" href=\"" +
+                            element.href +
+                            "\"> <div class=\"carousel-caption\"><h4>" +
+                            element.alt +
+                            "</h4><br><br></div></div> \n"
+                    } else {
+                        txt += " <div class=\"item\">\n" +
+                            " <img class=\"img-rounded CarouselImg\" src=\"" +
+                            element.src +
+                            "\" alt=\"" +
+                            element.alt +
+                            "\" href=\"" +
+                            element.href +
+                            "\"> <div class=\"carousel-caption\"><h4>" +
+                            element.alt +
+                            "</h4><br><br></div></div> \n"
+                    }
+                    i += 1
 
-            })
-            // console.log(txt)
-            $("#myCarousel-img").prepend(txt);
-            // console.log($("#myCarousel-img:first-child").attr("class"))
+                })
+                // console.log(txt)
+                $("#myCarousel-img").prepend(txt);
+                // console.log($("#myCarousel-img:first-child").attr("class"))
+            }
+                //督查督办
+                var sub_channel_1=[
+                    {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='14' flag=''}
+                    {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
+                    {/dede:arclist}
+                ]
+                //通报点评
+                var sub_channel_2=[
+                    {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='15' flag=''}
+                    {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
+                    {/dede:arclist}
+                ]
+                //公告通知
+                var sub_channel_3=[
+                    {dede:arclist row=5 titlelen=60 orderby=pubdate typeid='16' flag=''}
+                    {name: "[field:fulltitle/]", date: "[field:pubdate function="MyDate('Y-m-d',@me)"/]", href: "[field:arcurl/]"},
+                    {/dede:arclist}
+                ]
 
-            // 绑定初始数据
-            $("#channel-1>.list-group").html(genSubChannelData(sub_channel_1))
-        });
-        // 子栏目鼠标接触激活
-        $(document).ready(function () {
-            $(".child-channel>li").mouseenter(function () {
+                function genSubChannelData(sub_list){
+                    let txt = "";
+                    sub_list.forEach(function (element){
+                        txt += "                       <a href=\"" + element.href+
+                            "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
+                            "<span class=\"badge badge-primary badge-date\">" + element.date+
+                            "</span>\n" + element.name+ "\n" + " </a>\n"
+                    })
+                    console.log(txt);
+                    return txt
+                }
 
-                $(this).siblings("li").removeClass("active")
-                $(this).addClass("active");
-                if($(this).children().text()==="督查督办"){
-                    $("#channel-1>.list-group").html(genSubChannelData(sub_channel_1))
+                // 绑定数据
+                function setChannelData(channel_id, child_name) {
+
+                    let txt = "";
+                    console.log();
+                    channels_dict[channel_map.get(channel_id)][child_name].forEach(function (element) {
+                        txt += "                       <a href=\"" + element.href+
+                            "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
+                            "<span class=\"badge badge-primary badge-date\">" + element.date+
+                            "</span>\n" + element.name+ "\n" + " </a>\n"
+                    })
+                    return txt
+
                 }
-                if($(this).children().text()==="通报点评"){
-                    $("#channel-1>.list-group").html(genSubChannelData(sub_channel_2))
-                }
-                if($(this).children().text()==="公告通知"){
-                    $("#channel-1>.list-group").html(genSubChannelData(sub_channel_3))
-                }
-            })
-        });
+
+                $(document).ready(function () {
+                    // 绑定导航栏
+                    bind_nav();
+                    //绑定轮播
+                    bind_carousel();
+                    setChannelName();
+                });
+                // 子栏目鼠标接触激活
+                $(document).ready(function () {
+                    $(".child-channel>li").mouseenter(function () {
+
+                        $(this).siblings("li").removeClass("active")
+                        $(this).addClass("active");
+                        if($(this).children().text()==="督查督办"){
+                            $("#channel-1>.list-group").html(genSubChannelData(sub_channel_1))
+                        }
+                        if($(this).children().text()==="通报点评"){
+                            $("#channel-1>.list-group").html(genSubChannelData(sub_channel_2))
+                        }
+                        if($(this).children().text()==="公告通知"){
+                            $("#channel-1>.list-group").html(genSubChannelData(sub_channel_3))
+                        }
+                    })
+                });
         //绑定子栏目数据
 
     </script>
@@ -292,7 +313,7 @@
             <div class="row clearfix">
                 <!--                栏目1-->
                 <div id="channel-1" class="col-md-6  col-lg-6 col-sm-6 column ">
-                    <p class="Channel-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span> 局务公开</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span> 局务公开</p>
                     <ul class="nav nav-tabs child-channel">
                         <li class="active "><a href="#">督查督办</a></li>
                         <li><a href="#">通报点评</a></li>

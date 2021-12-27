@@ -29,22 +29,77 @@
         }
     </style>
     <script>
-        var top_channels = [
-            {name: "channel1", url: "https://baidu.com"},
-            {name: "channel2", url: "https://baidu.com"},
-            {name: "channel3", url: "https://baidu.com"},
-            {name: "channel4", url: "https://baidu.com"},
-        ];
-        var Carousel = [
-            {src: "", alt: "11", href: "#"},
-            {src: "", alt: "22", href: "#"},
-            {src: "", alt: "33", href: "#"},
-            {src: "", alt: "44", href: "#"},
-            {src: "", alt: "55", href: "#"},
-        ]
+        // 设置频道名称
+        function setChannelName(){
+            var channel_id2name = [
+                [$('#channel-1'), "党风廉政建设"],
+                [$('#channel-2'), "党史学习"],
+                [$('#channel-3'), "重点工作实践"],
+                [$('#channel-4'), "统计"],
+                [$('#channel-5'), "组织人事"],
+                [$('#channel-6'), "职工之家"],
+            ]
+            channel_id2name.forEach(function (element){
+                element[0].children("p").text(element[1])
+            })
+        }
+        // 绑定导航栏
+        function bind_nav(){
+            var top_channels = [
+                {name: "channel1", url: "https://baidu.com"},
+                {name: "channel2", url: "https://baidu.com"},
+                {name: "channel3", url: "https://baidu.com"},
+                {name: "channel4", url: "https://baidu.com"},
+            ];
+            let txt = "";
+            top_channels.forEach(function (element) {
+                txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
+            })
+            $("#my-nav").append(txt);
+        }
+        //绑定轮播
+        function bind_carousel(){
+            var Carousel = [
+                {src: "", alt: "11", href: "#"},
+                {src: "", alt: "22", href: "#"},
+                {src: "", alt: "33", href: "#"},
+                {src: "", alt: "44", href: "#"},
+                {src: "", alt: "55", href: "#"},
+            ]
+            txt = "";
+            var i = 0
+            Carousel.forEach(function (element) {
+                if (i === 0) {
+                    txt += " <div class=\"item active\">\n" +
+                        " <img class=\"img-rounded CarouselImg\" src=\"" +
+                        element.src +
+                        "\" alt=\"" +
+                        element.alt +
+                        "\" href=\"" +
+                        element.href +
+                        "\"> <div class=\"carousel-caption\"><h4>" +
+                        element.alt +
+                        "</h4><br><br></div></div> \n"
+                } else {
+                    txt += " <div class=\"item\">\n" +
+                        " <img class=\"img-rounded CarouselImg\" src=\"" +
+                        element.src +
+                        "\" alt=\"" +
+                        element.alt +
+                        "\" href=\"" +
+                        element.href +
+                        "\"> <div class=\"carousel-caption\"><h4>" +
+                        element.alt +
+                        "</h4><br><br></div></div> \n"
+                }
+                i += 1
 
-
-
+            })
+            // console.log(txt)
+            $("#myCarousel-img").prepend(txt);
+            // console.log($("#myCarousel-img:first-child").attr("class"))
+        }
+        // 专门生成栏目文章类容，方便setChannelData生成数据
         function get_channel_contents() {
             var sub_2_1 = [
                 {name: "artist21", href: "#", date: "11-21"},
@@ -101,7 +156,7 @@
         }
         // 绑定channel数据 传递channel_id child_name 得到内容数据
         function setChannelData(channel_id, child_name) {
-            // id 与 实际栏目 的映射
+            // id 与 channels_contents 名字 的映射
             var channel_map = new Map([
                 ['channel-1', "channel-1"],
                 ['channel-2', "channel-2"],
@@ -110,10 +165,10 @@
                 ['channel-5', "channel-1"],
                 ['channel-6', "channel-1"],
             ]);
-            var channels_dict = get_channel_contents();
+            var channels_contents = get_channel_contents();
             let txt = "";
             console.log();
-            channels_dict[channel_map.get(channel_id)][child_name].forEach(function (element) {
+            channels_contents[channel_map.get(channel_id)][child_name].forEach(function (element) {
                 txt += "                       <a href=\"" + element.href +
                     "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
                     "<span class=\"badge badge-primary badge-date\">" + element.date +
@@ -124,46 +179,12 @@
 
         $(document).ready(function () {
             // 绑定导航栏
-            let txt = "";
-            top_channels.forEach(function (element) {
-                txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
-            })
-            $("#my-nav").append(txt);
+            bind_nav();
             //绑定轮播
-            txt = "";
-            var i = 0
-            Carousel.forEach(function (element) {
-                if (i === 0) {
-                    txt += " <div class=\"item active\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                } else {
-                    txt += " <div class=\"item\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                }
-                i += 1
-
-            })
-            // console.log(txt)
-            $("#myCarousel-img").prepend(txt);
-            // console.log($("#myCarousel-img:first-child").attr("class"))
+            bind_carousel();
+            setChannelName();
         });
-        // 鼠标悬停
+        // 鼠标悬停跟新栏目内容
         $(document).ready(function () {
             $(".child-channel>li").mouseenter(function () {
 
@@ -345,7 +366,7 @@
             <div class="row clearfix">
                 <!--                栏目1-->
                 <div id="channel-1" class="col-md-6  col-lg-6 col-sm-6 column ">
-                    <p class="Channel-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
                     <ul class="nav nav-tabs child-channel">
                         <li class="test active"><a target='_blank' href="#">子栏目1</a></li>
                         <li class=""><a target='_blank' href="#">子栏目2</a></li>
