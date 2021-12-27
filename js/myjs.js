@@ -1,6 +1,7 @@
 $(document).ready(function(){
-    $("#hide").click(function(){
+    $(".hide-btn").click(function(){
         // window.alert("test")
-        $(".sticky-bar").hide();
+        $(this).next().hide();
+        $(this).hide();
     });
 });

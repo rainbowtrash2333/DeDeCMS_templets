@@ -145,6 +145,8 @@ img.shadow {
     position: fixed;	        /* 设置fixed固定定位 */
     bottom: 20px;		/* 距离浏览器窗口下边框20px */
     right: 20px;		/* 距离浏览器窗口右边框20px */
+    /*top: 200px;*/
+    /*left: 20px;*/
     width: 12%;
     max-width: 350px;
     min-width: 200px;
@@ -163,4 +165,5 @@ img.shadow {
 .sticky-bar img{
     width: 100%;
     border-radius: 10px;
+    margin-bottom: 3px;
 }
