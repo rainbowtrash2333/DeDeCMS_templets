@@ -43,44 +43,74 @@
             {src: "", alt: "55", href: "#"},
         ]
 
-        var channels_dict = {
-            "channel-1": {
-                "子栏目1": [
-                    {name: "artist11", href: "#", date: "11-11"},
-                    {name: "artist2", href: "#", date: "11-11"},
-                    {name: "artist3", href: "#", date: "11-12"},
-                    {name: "artist4", href: "#", date: "11-13"},
-                    {name: "artist5", href: "#", date: "11-14"}
-                ],
-                "子栏目2": [
-                    {name: "artist21", href: "#", date: "11-12"},
-                    {name: "artist2", href: "#", date: "11-11"},
-                    {name: "artist3", href: "#", date: "11-12"},
-                    {name: "artist4", href: "#", date: "11-13"},
-                    {name: "artist5", href: "#", date: "11-14"}
-                ],
-                "子栏目3": [
-                    {name: "artist31", href: "#", date: "11-13"},
-                    {name: "artist2", href: "#", date: "11-11"},
-                    {name: "artist3", href: "#", date: "11-12"},
-                    {name: "artist4", href: "#", date: "11-13"},
-                    {name: "artist5", href: "#", date: "11-14"}
-                ],
-            },
-        }
 
-        // 绑定channel数据
+
+        function get_channel_contents() {
+            var sub_2_1 = [
+                {name: "artist21", href: "#", date: "11-21"},
+                {name: "artist22", href: "#", date: "11-11"},
+                {name: "artist23", href: "#", date: "11-12"},
+                {name: "artist24", href: "#", date: "11-13"},
+                {name: "artist25", href: "#", date: "11-14"}
+            ]
+            var sub_2_2 = [
+                {name: "artist21", href: "#", date: "11-11"},
+                {name: "artist22", href: "#", date: "11-11"},
+                {name: "artist23", href: "#", date: "11-12"},
+                {name: "artist24", href: "#", date: "11-13"},
+                {name: "artist25", href: "#", date: "11-14"}
+            ]
+            var sub_2_3 = [
+                {name: "artist21", href: "#", date: "11-11"},
+                {name: "artist22", href: "#", date: "11-11"},
+                {name: "artist23", href: "#", date: "11-12"},
+                {name: "artist24", href: "#", date: "11-13"},
+                {name: "artist25", href: "#", date: "11-14"}
+            ]
+            var channels_contents = {
+                "channel-1": {
+                    "子栏目1": [
+                        {name: "artist11", href: "#", date: "11-11"},
+                        {name: "artist2", href: "#", date: "11-11"},
+                        {name: "artist3", href: "#", date: "11-12"},
+                        {name: "artist4", href: "#", date: "11-13"},
+                        {name: "artist5", href: "#", date: "11-14"}
+                    ],
+                    "子栏目2": [
+                        {name: "artist21", href: "#", date: "11-12"},
+                        {name: "artist2", href: "#", date: "11-11"},
+                        {name: "artist3", href: "#", date: "11-12"},
+                        {name: "artist4", href: "#", date: "11-13"},
+                        {name: "artist5", href: "#", date: "11-14"}
+                    ],
+                    "子栏目3": [
+                        {name: "artist31", href: "#", date: "11-13"},
+                        {name: "artist2", href: "#", date: "11-11"},
+                        {name: "artist3", href: "#", date: "11-12"},
+                        {name: "artist4", href: "#", date: "11-13"},
+                        {name: "artist5", href: "#", date: "11-14"}
+                    ],
+                },
+                "channel-2": {
+                    "子栏目1": sub_2_1,
+                    "子栏目2": sub_2_2,
+                    "子栏目3": sub_2_3,
+                }
+            }
+            return channels_contents
+        }
+        // 绑定channel数据 传递channel_id child_name 得到内容数据
         function setChannelData(channel_id, child_name) {
             // id 与 实际栏目 的映射
             var channel_map = new Map([
                 ['channel-1', "channel-1"],
-                ['channel-2', "channel-1"],
+                ['channel-2', "channel-2"],
                 ['channel-3', "channel-1"],
                 ['channel-4', "channel-1"],
                 ['channel-5', "channel-1"],
                 ['channel-6', "channel-1"],
             ]);
-
+            var channels_dict = get_channel_contents();
             let txt = "";
             console.log();
             channels_dict[channel_map.get(channel_id)][child_name].forEach(function (element) {
@@ -90,7 +120,6 @@
                     "</span>\n" + element.name + "\n" + " </a>\n"
             })
             return txt
-
         }
 
         $(document).ready(function () {
@@ -151,8 +180,8 @@
     <div class="container ">
         <div class="row ">
             <div class="col-lg-1">
-<!--                <img width="100" src="images/CBIRC.png" class="rounded float-right"-->
-<!--                     alt="CIRC">-->
+                <!--                <img width="100" src="images/CBIRC.png" class="rounded float-right"-->
+                <!--                     alt="CIRC">-->
             </div>
             <div class="col-lg-7">
                 <div class="align-self-center mx-auto bg-white text-primary">
@@ -571,34 +600,32 @@
         </div>
 
     </div>
-<!--    广告栏-->
+    <!--    广告栏-->
     <div class="sticky-bar">
-        <button type="button" class="btn btn-default btn-xs pull-right hide-btn"  style="font-weight: lighter;">
-            <span class="glyphicon glyphicon-remove" ></span>
+        <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
+            <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a  href="#"><img class="img-thumbnail"  src="images/sticky-ad.jpg" alt=""></a>
-        <button type="button"  class="btn btn-default btn-xs pull-right hide-btn"  style="font-weight: lighter;">
-            <span class="glyphicon glyphicon-remove" ></span>
+        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
+            <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a  href="#"><img class="img-thumbnail"  src="images/sticky-ad.jpg" alt=""></a>
-        <button type="button" class="btn btn-default btn-xs pull-right hide-btn"  style="font-weight: lighter;">
-            <span class="glyphicon glyphicon-remove" ></span>
+        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
+            <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a  href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
-<!--        <a  href="#">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a>-->
+        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <!--        <a  href="#">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a>-->
     </div>
 </div>
 <hr style="   height: 1px;border: none; background-color: #CCCCCC">
 
 
-
-<div class="container">
-    <!--    <p>导航链接：</p>-->
+<!--    <p>导航链接：</p>-->
+<div class="container" id="friend_link">
     <div class="row clearfix">
-        <div class="col-lg-1 col-md-1">
-            <!--            <p>链接导航</p>-->
+        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
         </div>
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     &#12288;银保监会网站&#12288;
@@ -613,7 +640,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     银保监会应用系统
@@ -633,7 +660,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     云南局应用系统
@@ -653,7 +680,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     &#12288;云南各分局 &#12288;
@@ -678,7 +705,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2">
+        <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     &#12288;省外监管局 &#12288;
@@ -693,7 +720,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
 
     </div>
 </div>
