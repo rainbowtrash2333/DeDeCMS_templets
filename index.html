@@ -144,9 +144,7 @@
                     first = first.next()
                     first.hide();
                 })
-                // console.log(                element.obj.find(".list-group").html())
                 var txt = getArtistsListHtml(element.sub[0].artists)
-                // console.log(txt)
                 element.obj.find(".list-group").html(txt)
             })
         }
@@ -164,7 +162,6 @@
             // $("#sub-nav").html("<a href=\"/\">home</a>");
             $("#my-nav>li").mouseenter(function () {
                 txt = "";
-                console.log("test")
                 var channel_name = $(this).find("a").text()
                 top_channels.forEach(function (element) {
                     if (element.name === channel_name) {
@@ -181,44 +178,20 @@
         //绑定轮播
         function bind_carousel() {
             var Carousel = [
-                {src:"", alt:"11", href:"#"},
-                {src:"", alt:"22", href:"#"},
-                {src:"", alt:"33", href:"#"},
-                {src:"", alt:"44", href:"#"},
-                {src:"", alt:"55", href:"#"},
-            ]
-            txt = "";
-            var i = 0
+                {src:"/img.png", alt:"111", href:"#"},
+                {src:"", alt:"222", href:"#"},
+                {src:"", alt:"333", href:"#"},
+                {src:"", alt:"444", href:"#"},
+                {src:"", alt:"555", href:"#"},
+            ];
+            var img = $("#myCarousel-img").find("img:first-child");
             Carousel.forEach(function (element) {
-                if (i === 0) {
-                    txt += " <div class=\"item active\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                } else {
-                    txt += " <div class=\"item\">\n" +
-                        " <img class=\"img-rounded CarouselImg\" src=\"" +
-                        element.src +
-                        "\" alt=\"" +
-                        element.alt +
-                        "\" href=\"" +
-                        element.href +
-                        "\"> <div class=\"carousel-caption\"><h4>" +
-                        element.alt +
-                        "</h4><br><br></div></div> \n"
-                }
-                i += 1
-
+                img.attr("src", element.arc);
+                img.attr("alt", element.alt);
+                img.attr("href", element.href);
+                img.next().find("h4").text(element.alt)
+                img = img.parent().next().find("img");
             })
-            // console.log(txt)
-            $("#myCarousel-img").prepend(txt);
-            // console.log($("#myCarousel-img:first-child").attr("class"))
         }
 
         function get_top_channel_contents() {
@@ -248,7 +221,6 @@
         function bind_side() {
             $("#side-1>p").text("领导活动");
             var contents_1 = get_top_channel_contents().artists;
-            console.log(get_channel_contents(contents_1))
             $("#side-1-content").html(getArtistsListHtml(contents_1))
         }
 
@@ -341,7 +313,7 @@
             updateArtistList();
             setModal();
             bind_side();
-        });
+        })
     </script>
 </head>
 <body>
@@ -419,6 +391,29 @@
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
                         <div id="myCarousel-img" class="carousel-inner">
+                            <div class="item active">
+                                <img isLoad="false" class="img-rounded CarouselImg" src="" alt="" href="#">
+                                <div class="carousel-caption">
+                                    <h4></h4><br><br>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img isLoad="false" class="img-rounded CarouselImg" src="" alt="" href="#">
+                                <div class="carousel-caption"><h4></h4><br><br></div>
+                            </div>
+                            <div class="item">
+                                <img isLoad="false" class="img-rounded CarouselImg" src="" alt="" href="#">
+                                <div class="carousel-caption"><h4></h4><br><br></div>
+                            </div>
+                            <div class="item">
+                                <img isLoad="false" class="img-rounded CarouselImg" src="" alt="" href="#">
+                                <div class="carousel-caption"><h4></h4><br><br></div>
+                            </div>
+                            <div class="item">
+                                <img isLoad="false" class="img-rounded CarouselImg" src="" alt="" href="#">
+                                <div class="carousel-caption"><h4></h4><br><br></div>
+                            </div>
+
                             <!-- 轮播（Carousel）导航 -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -718,6 +713,23 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+
+    $(function () {
+        $(".myCarousel-img img").each(function () {
+            console.log($(this).attr("src"))
+            var img = $(this);
+            img.load(function () {
+                img.attr("isLoad", "true");
+
+            });
+            img.error(function () {
+                log("no img")
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>
