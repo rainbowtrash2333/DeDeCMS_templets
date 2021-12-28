@@ -30,26 +30,94 @@
     </style>
     <script>
         var skin_root = "/"
-        var channel_name = [
-            {obj:$('#channel-1'), name:"党风廉政建设",sub:["党建宣传","中心组学习","支部建设"]},
-            {obj:$('#channel-2'), name:"党史学习",sub:["教育学习情况","我为群众办实事"]},
-            {obj:$('#channel-3'), name:"重点工作实践",sub:["党建宣传","中心组学习","支部建设"]},
-            {obj:$('#channel-4'), name:"监管统计",sub:["调研信息","统计信息披露","监管统计分析"]},
-            {obj:$('#channel-5'), name:"专题监管",sub:["案件防控","小微三农","消费者权益"]},
-            {obj:$('#channel-6'), name:"功能监管",sub:["现场监管","非现场监管","银行机构概览"]},
-        ]
+
+        // 专门生成栏目文章类容，方便setChannelData生成数据
+        function get_channel_contents() {
+            var sub_2_1 = [
+                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                {name:"artist15", href:"#", date:new Date("2021-11-11")}
+            ]
+            var sub_2_2 = [
+                {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                {name:"artist25", href:"#", date:new Date("2021-11-11")}
+            ]
+            var sub_2_3 = [
+                {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                {name:"artist25", href:"#", date:new Date("2021-11-11")}
+            ]
+            var channels_contents = [
+                {
+                    obj:$('#channel-1'), name:"党风廉政建设", sub:[
+                        {name:"党建宣传", href:"", artists:sub_2_1},
+                        {name:"中心组学习", href:"", artists:sub_2_2},
+                        {name:"支部建设", href:"", artists:sub_2_3},
+                    ]
+                },
+                {
+                    obj:$('#channel-2'), name:"党史学习", sub:[
+                        {name:"教育学习情况", href:"", artists:sub_2_2},
+                        {name:"我为群众办实事", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-3'), name:"监管统计", sub:[
+                        {name:"调研信息", href:"", artists:sub_2_1},
+                        {name:"统计信息披露", href:"", artists:sub_2_1},
+                        {name:"监管统计分析", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-4'), name:"专题监管", sub:[
+                        {name:"案件防控", href:"", artists:sub_2_1},
+                        {name:"小微三农", href:"", artists:sub_2_1},
+                        {name:"消费者权益", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-5'), name:"功能监管", sub:[
+                        {name:"现场监管", href:"", artists:sub_2_1},
+                        {name:"非现场监管", href:"", artists:sub_2_1},
+                        {name:"银行机构概览", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-6'), name:"政策法规", sub:[
+                        {name:"法律法规", href:"", artists:sub_2_1},
+                        {name:"管理制度", href:"", artists:sub_2_1},
+                        {name:"保密工作", href:"", artists:sub_2_1},
+                    ]
+                },
+            ]
+            return channels_contents
+        }
 
         // 设置频道名称
         function setChannelName() {
-            channel_name.forEach(function (element) {
+            var contents = get_channel_contents()
+            contents.forEach(function (element) {
                 element.obj.find("p").text(element.name)
                 var first = element.obj.find(".child-channel").find(":first")
-                element.sub.forEach(function (element){
+                element.sub.forEach(function (e) {
                     first.show()
-                    first.find("a").text(element);
+                    var sub_a = first.find("a");
+                    sub_a.text(e.name);
+                    sub_a.attr("href", e.href)
                     first = first.next()
                     first.hide();
                 })
+                // console.log(                element.obj.find(".list-group").html())
+                var txt = getArtistsListHtml(element.sub[0].artists)
+                // console.log(txt)
+                element.obj.find(".list-group").html(txt)
             })
         }
 
@@ -149,88 +217,31 @@
         }
 
 
-        // 专门生成栏目文章类容，方便setChannelData生成数据
-        function get_channel_contents() {
-            var sub_2_1 = [
-                {name:"artist21", href:"#", date:new Date("2021-11-11")},
-                {name:"artist22", href:"#", date:new Date("2021-11-11")},
-                {name:"artist23", href:"#", date:new Date("2021-11-11")},
-                {name:"artist24", href:"#", date:new Date("2021-11-11")},
-                {name:"artist25", href:"#", date:new Date("2021-11-11")}
-            ]
-            var sub_2_2 = [
-                {name:"artist21", href:"#", date:new Date("2021-11-11")},
-                {name:"artist22", href:"#", date:new Date("2021-11-11")},
-                {name:"artist23", href:"#", date:new Date("2021-11-11")},
-                {name:"artist24", href:"#", date:new Date("2021-11-11")},
-                {name:"artist25", href:"#", date:new Date("2021-11-11")}
-            ]
-            var sub_2_3 = [
-                {name:"artist21", href:"#", date:new Date("2021-11-11")},
-                {name:"artist22", href:"#", date:new Date("2021-11-11")},
-                {name:"artist23", href:"#", date:new Date("2021-11-11")},
-                {name:"artist24", href:"#", date:new Date("2021-11-11")},
-                {name:"artist25", href:"#", date:new Date("2021-11-11")}
-            ]
-            var channels_contents = {
-                "channel-1" :{
-                    "子栏目1":[
-                        {name:"artist11", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist2", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
-                    ],
-                    "子栏目2":[
-                        {name:"artist21", href:"#", date:new Date("2021-11-12")},
-                        {name:"artist2", href:"#", date:new Date("2021-11-12")},
-                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
-                    ],
-                    "子栏目3":[
-                        {name:"artist31", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist2", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
-                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
-                    ],
-                },
-                "channel-2":{
-                    "子栏目1":sub_2_1,
-                    "子栏目2":sub_2_2,
-                    "子栏目3":sub_2_3,
-                }
-            }
-            return channels_contents
-        }
-        function setSubChannelName(){
-
-        }
-
         // 绑定channel数据 传递channel_id child_name 得到内容数据
-        function setChannelData(channel_id, child_name) {
+        function getChannelData(channel_id, child_name) {
+            var contents = get_channel_contents()
             // id 与 channels_contents 名字 的映射
-            var channel_map = new Map([
-                ['channel-1', "channel-1"],
-                ['channel-2', "channel-2"],
-                ['channel-3', "channel-1"],
-                ['channel-4', "channel-1"],
-                ['channel-5', "channel-1"],
-                ['channel-6', "channel-1"],
-            ]);
             var channels_contents = get_channel_contents();
-            return getArtistsListHtml(channels_contents[channel_map.get(channel_id)][child_name])
+            var id = channel_id.substring(8, 9)-1
+            var artists = []
+            contents[id].sub.forEach(function (e) {
+                if (e.name === child_name) {
+                    artists = e.artists;
+                }
+            })
+            return getArtistsListHtml(artists)
         }
+
         // 鼠标悬停跟新栏目内容
-        function updateArtistList(){
+        function updateArtistList() {
             $(".child-channel>li").mouseenter(function () {
 
                 $(this).siblings("li").removeClass("active")
                 $(this).addClass("active");
-                $(this).parent().next().html(setChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
+                $(this).parent().next().html(getChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
             })
         }
+
         $(document).ready(function () {
             // 绑定导航栏
             bind_nav();
