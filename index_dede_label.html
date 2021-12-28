@@ -30,229 +30,349 @@
     </style>
     <script>
         var skin_root = "{dede:global.cfg_templets_skin/}/"
-        var top_channels = [
-            {dede:channel type = 'top' row = '10'}
-            {name:"[field:typename/]", url:"[field:typelink/]"},
-            {/dede:channel}
-        ];
-        var Carousel = [
-            {dede:arclist flag = '' type = 'image' row = '5' titlelen = '70'}
-            {src:"[field:litpic/]", alt:"[field:fulltitle/]", href:"[field:litpic/]"},
-            {/dede:arclist}
-        ]
-        //督查督办
-        var sub_channel_1 = [
-            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
-            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
-        {/dede:arclist}
-        ]
-            //通报点评
-            var sub_channel_2 = [
-                {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '15' flag = ''}
-                {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
-            {/dede:arclist}
-            ]
-                //公告通知
-                var sub_channel_3 = [
-                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '16' flag = ''}
-                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+        function get_nav_contents() {
+            var top_channels = [
+                {dede:channel type = 'top' row = '10'}
+                {name:"[field:typename/]", url:"[field:typelink/]"},
+                {/dede:channel}
+            ];
+            var son_channels = [{dede:channelartlist typeid=''}
+                    [
+                    {dede:channel type='son' noself='yes'}
+                    {name:"[field:typename/]",url:"[field:typeurl/]"},
+                    {/dede:channel}
+                ],
+                {/dede:channelartlist}];
+            var nav_contents =[{name:"主页", url:"/", sub:[{name:"home", url:"/"}]}];
+            var i =0;
+            top_channels.forEach(function (element){
+                var foo = {name:element.name,url:element.url,sub:son_channels[i]};
+                i=i+1;
+                nav_contents.push(foo)
+            })
+            return nav_contents
+        }
+
+            // 专门生成栏目文章类容，方便setChannelData生成数据
+            function get_channel_contents() {
+                var channels_contents = [
+                    {
+                        obj:$('#channel-1'), name:"党风廉政建设", sub:[
+                            {name:"党建宣传", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
                 {/dede:arclist}
-                ]
-
-
-                    // 设置频道名称
-                    function setChannelName() {
-                        var channel_id2name = [
-                            {obj:$('#channel-1'), name:"党风廉政建设",sub:["党建宣传","中心组学习","支部建设"]},
-                            {obj:$('#channel-2'), name:"党史学习",sub:["教育学习情况","我为群众办实事"]},
-                            {obj:$('#channel-3'), name:"重点工作实践",sub:["党建宣传","中心组学习","支部建设"]},
-                            {obj:$('#channel-4'), name:"监管统计",sub:["调研信息","统计信息披露","监管统计分析"]},
-                            {obj:$('#channel-5'), name:"专题监管",sub:["案件防控","小微三农","消费者权益"]},
-                            {obj:$('#channel-6'), name:"功能监管",sub:["现场监管","非现场监管","银行机构概览"]},
-                        ]
-                        channel_id2name.forEach(function (element) {
-                            element.obj.find("p").text(element.name)
-                            var first = element.obj.find(".child-channel").find(":first")
-                            element.sub.forEach(function (element){
-                                first.show()
-                                first.find("a").text(element);
-                                first = first.next()
-                                first.hide();
-                            })
-                        })
-                    }
-
-                    // 绑定导航栏
-                    function bind_nav() {
-
-                        let txt = "";
-                        top_channels.forEach(function (element) {
-                            txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
-                        })
-                        $("#my-nav").append(txt);
-                    }
-
-                    //绑定轮播
-                    function bind_carousel() {
-                        txt = "";
-                        var i = 0
-                        Carousel.forEach(function (element) {
-                            if (i === 0) {
-                                txt += " <div class=\"item active\">\n" +
-                                    " <img class=\"img-rounded CarouselImg\" src=\"" +
-                                    element.src +
-                                    "\" alt=\"" +
-                                    element.alt +
-                                    "\" href=\"" +
-                                    element.href +
-                                    "\"> <div class=\"carousel-caption\"><h4>" +
-                                    element.alt +
-                                    "</h4><br><br></div></div> \n"
-                            } else {
-                                txt += " <div class=\"item\">\n" +
-                                    " <img class=\"img-rounded CarouselImg\" src=\"" +
-                                    element.src +
-                                    "\" alt=\"" +
-                                    element.alt +
-                                    "\" href=\"" +
-                                    element.href +
-                                    "\"> <div class=\"carousel-caption\"><h4>" +
-                                    element.alt +
-                                    "</h4><br><br></div></div> \n"
-                            }
-                            i += 1
-
-                        })
-                        // console.log(txt)
-                        $("#myCarousel-img").prepend(txt);
-                        // console.log($("#myCarousel-img:first-child").attr("class"))
-                    }
-
-                    //绑定channel-top
-                    function bing_channel_top() {
-                        var contents = {
-                            name:"领导活动",
-                            artists:[
-                                {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '9,10,11' flag = ''}
-                                {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]"},
+                ]},
+                {name:"中心组学习", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                    {/dede:arclist}
+                    ]},
+                    {name:"支部建设", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                        {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                        {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
                         {/dede:arclist}
-                        ],
-                        }
-                        var top = $("#channel-top")
-                        top.find(".Channel-title").text(contents.name);
-                        top.find(".list-group").html(getArtistsListHtml(contents.artists))
-                    }
-
-                        //网站图片、广告参数
-                        function setObjAttrs() {
-                            var attrs = [
-                                {obj:$('#body_ad1'), attrs:{href:"#"}},
-                                {obj:$('#body_img_ad1'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
-                                {obj:$('#side_ad1'), attrs:{href:"#"}},
-                                {obj:$('#side_ad2'), attrs:{href:"#"}},
-                                {obj:$('#side_ad3'), attrs:{href:"#"}},
-                                {obj:$('#side_img_ad1'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
-                                {obj:$('#side_img_ad2'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
-                                {obj:$('#side_img_ad3'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
-                            ]
-                            attrs.forEach(function (element) {
-                                for (var key in element.attrs) {
-                                    element.obj.attr(key, element.attrs[key])
-                                }
-                            })
-                        }
-
-                        // 专门生成栏目文章类容，方便setChannelData生成数据
-                        function get_channel_contents() {
-                            var channels_contents = {
-                                "channel-1":{
-                                    "子栏目1":[
-                                        {name:"artist11", href:"#", date:"11-11"},
-                                        {name:"artist2", href:"#", date:"11-11"},
-                                        {name:"artist3", href:"#", date:"11-12"},
-                                        {name:"artist4", href:"#", date:"11-13"},
-                                        {name:"artist5", href:"#", date:"11-14"}
-                                    ],
-                                    "子栏目2":[
-                                        {name:"artist21", href:"#", date:"11-12"},
-                                        {name:"artist2", href:"#", date:"11-11"},
-                                        {name:"artist3", href:"#", date:"11-12"},
-                                        {name:"artist4", href:"#", date:"11-13"},
-                                        {name:"artist5", href:"#", date:"11-14"}
-                                    ],
-                                    "子栏目3":[
-                                        {name:"artist31", href:"#", date:"11-13"},
-                                        {name:"artist2", href:"#", date:"11-11"},
-                                        {name:"artist3", href:"#", date:"11-12"},
-                                        {name:"artist4", href:"#", date:"11-13"},
-                                        {name:"artist5", href:"#", date:"11-14"}
-                                    ],
+                        ]},
+                    ]
+                    },
+                    {
+                        obj:$('#channel-2'), name:"党史学习", sub:[
+                        {name:"教育学习情况", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                        {/dede:arclist}
+                        ]},
+                        {name:"我为群众办实事", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                            {/dede:arclist}
+                            ]},
+                        ]
+                        },
+                        {
+                            obj:$('#channel-3'), name:"监管统计", sub:[
+                            {name:"调研信息", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                            {/dede:arclist}
+                            ]},
+                            {name:"统计信息披露", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                {/dede:arclist}
+                                ]},
+                                {name:"监管统计分析", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                    {/dede:arclist}
+                                    ]},
+                                ]
                                 },
-                                "channel-2":{
-                                    "子栏目1":sub_2_1,
-                                    "子栏目2":sub_2_2,
-                                    "子栏目3":sub_2_3,
-                                }
-                            };
-                            return channels_contents
-                        }
+                                {
+                                    obj:$('#channel-4'), name:"专题监管", sub:[
+                                    {name:"案件防控", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                    {/dede:arclist}
+                                    ]},
+                                    {name:"小微三农", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                        {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                        {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                        {/dede:arclist}
+                                        ]},
+                                        {name:"消费者权益", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                            {/dede:arclist}
+                                            ]},
+                                        ]
+                                        },
+                                        {
+                                            obj:$('#channel-5'), name:"功能监管", sub:[
+                                            {name:"现场监管", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                            {/dede:arclist}
+                                            ]},
+                                            {name:"非现场监管", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                                {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                                {/dede:arclist}
+                                                ]},
+                                                {name:"银行机构概览", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                                    {/dede:arclist}
+                                                    ]},
+                                                ]
+                                                },
+                                                {
+                                                    obj:$('#channel-6'), name:"政策法规", sub:[
+                                                    {name:"法律法规", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                                            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                                    {/dede:arclist}
+                                                    ]},
+                                                    {name:"管理制度", href:"{dede:type typeid='9'}[field:typelink/]{/dede:type}", artists:[
+                                                        {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                        {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                                        {/dede:arclist}
+                                                        ]},
+                                                        {name:"保密工作", href:"{dede:type typeid='52'}[field:typelink/]{/dede:type}", artists:[
+                                                            {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '14' flag = ''}
+                                                            {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]",},
+                                                            {/dede:arclist}
+                                                            ]},
+                                                        ]
+                                                        },
+                                                    ]
+                                                        return channels_contents
+                                                    }
 
-                        function genSubChannelData(sub_list) {
+                                                    // 设置频道名称
+                                                    function setChannelName() {
+                                                        var contents = get_channel_contents()
+                                                        contents.forEach(function (element) {
+                                                            element.obj.find("p").text(element.name)
+                                                            var first = element.obj.find(".child-channel").find(":first")
+                                                            element.sub.forEach(function (e) {
+                                                                first.show()
+                                                                var sub_a = first.find("a");
+                                                                sub_a.text(e.name);
+                                                                sub_a.attr("href", e.href)
+                                                                if (e.href === "#") {
+                                                                    sub_a.attr("onclick", "return false;")
+                                                                }
+                                                                first = first.next()
+                                                                first.hide();
+                                                            })
+                                                            // console.log(                element.obj.find(".list-group").html())
+                                                            var txt = getArtistsListHtml(element.sub[0].artists)
+                                                            // console.log(txt)
+                                                            element.obj.find(".list-group").html(txt)
+                                                        })
+                                                    }
 
-                            sub_list.forEach(function (element) {
-                                txt += "                       <a href=\"" + element.href +
-                                    "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
-                                    "<span class=\"badge badge-primary badge-date\">" + element.date +
-                                    "</span>\n" + element.name + "\n" + " </a>\n"
-                            })
+                                                    // 绑定导航栏
+                                                    function bind_nav() {
+                                                        var top_channels = get_nav_contents();
+                                                        var txt = "";
+                                                        top_channels.forEach(function (element) {
+                                                            txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
+                                                        })
+                                                        var nav = $("#my-nav");
+                                                        nav.html(txt);
+                                                        nav.find(":first-child").addClass("active");
+                                                        // $("#sub-nav").html("<a href=\"/\">home</a>");
+                                                        $("#my-nav>li").mouseenter(function () {
+                                                            txt = "";
+                                                            // console.log("test")
+                                                            var channel_name = $(this).find("a").text()
+                                                            top_channels.forEach(function (element) {
+                                                                if (element.name === channel_name) {
+                                                                    element.sub.forEach(function (e) {
+                                                                        txt += "<li><a href=\"" + e.url + "\">" + e.name + "</a></li>"
+                                                                    })
 
-                            return txt
-                        }
+                                                                }
+                                                            })
+                                                            $("#sub-nav").html(txt);
+                                                        })
+                                                    }
 
-                        // 绑定数据
-                        function setChannelData(channel_id, child_name) {
-                            let txt = "";
-                            console.log();
-                            channels_dict[channel_map.get(channel_id)][child_name].forEach(function (element) {
-                                txt += "                       <a href=\"" + element.href +
-                                    "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
-                                    "<span class=\"badge badge-primary badge-date\">" + element.date +
-                                    "</span>\n" + element.name + "\n" + " </a>\n"
-                            })
-                            return txt
+                                                    //绑定轮播
+                                                    function bind_carousel() {
+                                                        var Carousel = [
+                                                            {dede:arclist flag = '' type = 'image' row = '5' titlelen = '70'}
+                                                            {src:"[field:litpic/]", alt:"[field:fulltitle/]", href:"[field:litpic/]"},
+                                                            {/dede:arclist}
+                                                        ]
+                                                        txt = "";
+                                                        var i = 0
+                                                        Carousel.forEach(function (element) {
+                                                            if (i === 0) {
+                                                                txt += " <div class=\"item active\">\n" +
+                                                                    " <img class=\"img-rounded CarouselImg\" src=\"" +
+                                                                    element.src +
+                                                                    "\" alt=\"" +
+                                                                    element.alt +
+                                                                    "\" href=\"" +
+                                                                    element.href +
+                                                                    "\"> <div class=\"carousel-caption\"><h4>" +
+                                                                    element.alt +
+                                                                    "</h4><br><br></div></div> \n"
+                                                            } else {
+                                                                txt += " <div class=\"item\">\n" +
+                                                                    " <img class=\"img-rounded CarouselImg\" src=\"" +
+                                                                    element.src +
+                                                                    "\" alt=\"" +
+                                                                    element.alt +
+                                                                    "\" href=\"" +
+                                                                    element.href +
+                                                                    "\"> <div class=\"carousel-caption\"><h4>" +
+                                                                    element.alt +
+                                                                    "</h4><br><br></div></div> \n"
+                                                            }
+                                                            i += 1
 
-                        }
+                                                        })
+                                                        // console.log(txt)
+                                                        $("#myCarousel-img").prepend(txt);
+                                                        // console.log($("#myCarousel-img:first-child").attr("class"))
+                                                    }
+                                                        //绑定侧栏
+                                                        function bind_side(){
+                                                            $("#side-1>p").text("领导活动");
+                                                            var contents_1= get_top_channel_contents().artists;
+                                                            $("#side-1-content").html(getArtistsListHtml(contents_1))
+                                                        }
+                                                        function get_top_channel_contents(){
+                                                            var contents = {
+                                                                name:"领导活动",
+                                                                artists:[
+                                                                    {dede:arclist row = 5 titlelen = 60 orderby = pubdate typeid = '9,10,11' flag = ''}
+                                                                    {name:"[field:fulltitle/]", date:new Date("[field:pubdate function="MyDate('Y-m-d', @me)"/]"),href:"[field:arcurl/]"},
+                                                            {/dede:arclist}
+                                                            ],
+                                                            }
+                                                            return contents
+                                                        }
+                                                            //绑定channel-top
+                                                            function bing_channel_top() {
+                                                                var contents =get_top_channel_contents();
+                                                                var top = $("#channel-top")
+                                                                top.find(".Channel-title").text(contents.name);
+                                                                top.find(".list-group").html(getArtistsListHtml(contents.artists))
 
-                        function updateArtistList(){
-                            $(".child-channel>li").mouseenter(function () {
+                                                            }
 
-                                $(this).siblings("li").removeClass("active")
-                                $(this).addClass("active");
-                                if ($(this).children().text() === "督查督办") {
-                                    $("#channel-1>.list-group").html(getArtistsListHtml(sub_channel_1))
-                                }
-                                if ($(this).children().text() === "通报点评") {
-                                    $("#channel-1>.list-group").html(getArtistsListHtml(sub_channel_2))
-                                }
-                                if ($(this).children().text() === "公告通知") {
-                                    $("#channel-1>.list-group").html(getArtistsListHtml(sub_channel_3))
-                                }
-                            })
-                        }
+                                                            //网站图片、广告参数
+                                                            function setObjAttrs() {
 
-                        $(document).ready(function () {
-                            // 绑定导航栏
-                            bind_nav();
-                            //绑定轮播
-                            bind_carousel();
-                            setChannelName();
-                            setObjAttrs();
-                            bing_channel_top();
-                            hide_add();
-                            updateArtistList();
-                        });
+                                                                var attrs = [
+                                                                    {obj:$('#body_ad1'), attrs:{href:"#"}},
+                                                                    {obj:$('#body_img_ad1'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                                                                    {obj:$('#side_ad1'), attrs:{href:"#"}},
+                                                                    {obj:$('#side_ad2'), attrs:{href:"#"}},
+                                                                    {obj:$('#side_ad3'), attrs:{href:"#"}},
+                                                                    {obj:$('#side_img_ad1'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+                                                                    {obj:$('#side_img_ad2'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+                                                                    {obj:$('#side_img_ad3'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+                                                                ]
+                                                                attrs.forEach(function (element) {
+                                                                    for (var key in element.attrs) {
+                                                                        element.obj.attr(key, element.attrs[key])
+                                                                    }
+                                                                })
+                                                            }
+                                                            // 绑定channel数据 传递channel_id child_name 得到内容数据
+                                                            function getChannelData(channel_id, child_name) {
+                                                                var contents = get_channel_contents()
+                                                                // id 与 channels_contents 名字 的映射
+                                                                var channels_contents = get_channel_contents();
+                                                                var id = channel_id.substring(8, 9) - 1
+                                                                var artists = []
+                                                                contents[id].sub.forEach(function (e) {
+                                                                    if (e.name === child_name) {
+                                                                        artists = e.artists;
+                                                                    }
+                                                                })
+                                                                return getArtistsListHtml(artists)
+                                                            }
 
-        //绑定子栏目数据
+                                                            // 鼠标悬停跟新栏目内容
+                                                            function updateArtistList() {
+                                                                $(".child-channel>li").mouseenter(function () {
+
+                                                                    $(this).siblings("li").removeClass("active")
+                                                                    $(this).addClass("active");
+                                                                    $(this).parent().next().html(getChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
+                                                                })
+
+                                                                var top_channels = get_nav_contents();
+                                                            }
+                                                            // 激活modal
+                                                            function setModal(){
+                                                                var contents =get_top_channel_contents();
+                                                                $(".modal-body").html(getArtistsListHtml(contents.artists));
+                                                                $(".modal-title").text("领导动态");
+                                                                var cookie_day = new Date(getCookie('date')).getDay();
+                                                                var isShow = getCookie('isShow');
+
+                                                                var today = new Date();
+                                                                today.setTime(today.getTime());
+                                                                if(isShow===""){
+                                                                    $('#myModal').modal('show');
+                                                                }
+                                                                if(cookie_day!==today.getDay()){
+                                                                    $('#myModal').modal('show');
+                                                                }else if(isShow!=='0'){
+                                                                    $('#myModal').modal('show');
+                                                                }
+                                                                $('#modal-close-today').click(function (){
+                                                                    var now = new Date();
+                                                                    var time = now.getTime();
+                                                                    var expireTime = time + 1000*360000;
+                                                                    now.setTime(expireTime);
+                                                                    document.cookie = 'date='+ today.toString() +';expires='+now.toUTCString()+';path=/';
+                                                                    document.cookie='isShow=0'+';expires='+now.toUTCString()+';path=/';
+                                                                })
+                                                            }
+
+                                                            $(document).ready(function () {
+                                                                // 绑定导航栏
+                                                                bind_nav();
+                                                                //绑定轮播
+                                                                bind_carousel();
+                                                                setChannelName();
+                                                                setObjAttrs();
+                                                                bing_channel_top();
+                                                                bind_side();
+                                                                hide_add();
+                                                                updateArtistList();
+                                                                setModal();
+                                                            });
+
     </script>
 </head>
 <body>
@@ -261,7 +381,7 @@
     <div class="container ">
         <div class="row ">
             <div class="col-lg-1">
-                <!--                <img width="100" src="{dede:global.cfg_templets_skin/}/images/CBIRC.png" class="rounded float-right"-->
+                <!--                <img width="100" src="images/CBIRC.png" class="rounded float-right"-->
                 <!--                     alt="CIRC">-->
             </div>
             <div class="col-lg-7">
@@ -277,8 +397,7 @@
 
                 <br>
                 <br>
-                <form class="form-inline my-2 my-lg-0" role="search" method="get" target="_blank"
-                      action="{dede:global name='cfg_phpurl'/}/search.php">
+                <form class="form-inline my-2 my-lg-0" role="search" method="get" action="todo" target="_blank">
                     <div class="input-group">
                         <input type="text" class="form-control" name="keyword" placeholder="全站检索">
                         <span class="input-group-btn">
@@ -298,11 +417,15 @@
     <br>
     <!--    导航栏-->
     <div class="row clearfix">
-        <div class="col-md-12  col-lg-12">
+        <div class="col-md-12  col-lg-12 col-md-12">
             <ul id="my-nav" class="nav nav-pills">
-                <li class="active "><a id="nav-home" class="head-nav" href="{dede:global.cfg_indexurl/}">主页</a></li>
             </ul>
-
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 col-lg-12 col-md-12">
+            <ul class="nav nav-tabs" id="sub-nav" style="border: none">
+            </ul>
         </div>
     </div>
     <hr>
@@ -314,7 +437,6 @@
         <!--        主窗口-->
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row clearfix">
-                <!--    幻灯片-->
                 <!--    幻灯片-->
                 <div class="col-lg-5 col-md-5 col-sm-6">
                     <div id="myCarousel" class="carousel slide">
@@ -328,7 +450,7 @@
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
                         <div id="myCarousel-img" class="carousel-inner">
-
+                            <!-- 轮播（Carousel）导航 -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -346,33 +468,9 @@
                 <div class="col-md-1">
                 </div>
                 <!--                文章列表1-->
-                <div id="channel-top"  class="col-lg-6 col-md-6 col-sm-6 border1 ">
+                <div id="channel-top" class="col-lg-6 col-md-6 col-sm-6 border1 ">
                     <p class="Channel-title"><span class="glyphicon glyphicon-th-list"></span> 领导活动</p>
-
                     <ul class="list-group">
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
-
                     </ul>
                 </div>
 
@@ -394,37 +492,15 @@
             <div class="row clearfix">
                 <!--                栏目1-->
                 <div id="channel-1" class="col-md-6  col-lg-6 col-sm-6 column ">
-                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span> 局务公开</p>
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
                     <ul class="nav nav-tabs child-channel">
-                        <li class="active "><a href="#">督查督办</a></li>
-                        <li><a href="#">通报点评</a></li>
-                        <li><a href="#">公告通知</a></li>
+                        <li class="test active"><a target='_blank' href="#">子栏目1</a></li>
+                        <li class=""><a target='_blank' href="#">子栏目2</a></li>
+                        <li class=""><a target='_blank' href="#">子栏目3</a></li>
 
                     </ul>
                     <ul class="list-group">
 
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test 1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
                 <!--                栏目2-->
@@ -437,28 +513,6 @@
                     </ul>
                     <ul class="list-group">
 
-                        <a href="#" class="list-group-item">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                        </a>
-
-                        <a href="#" class="list-group-item text-nowrap channel-text">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item text-nowrap channel-text">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item text-nowrap channel-text">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item text-nowrap channel-text">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
             </div>
@@ -472,34 +526,11 @@
                         <li><a href="#">子栏目3</a></li>
                     </ul>
                     <ul class="list-group">
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
                 <!--            栏目4-->
-                <div id="channel-4" class="col-md-6 col-lg-6 col-sm-6 column ">
-                    <p class="Channel-title "><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
+                <div id="channel-4" class="col-md-6 col-lg-6 col-sm-6  column ">
+                    <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
                     <ul class="nav nav-tabs child-channel">
                         <li class="active"><a href="#">子栏目1</a></li>
                         <li><a href="#">子栏目2</a></li>
@@ -507,28 +538,6 @@
                     </ul>
                     <ul class="list-group">
 
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
             </div>
@@ -544,28 +553,6 @@
                     </ul>
                     <ul class="list-group">
 
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
                 <!--                栏目6-->
@@ -577,73 +564,35 @@
                         <li><a href="#">子栏目3</a></li>
                     </ul>
                     <ul class="list-group">
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test1
-                        </a>
-
-                        <a href="#" class="list-group-item" style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test2
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test3
-                        </a>
-
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test4
-                        </a>
-                        <a href="#" class="list-group-item " style="font-size: 16px">
-                            <span class="badge badge-primary badge-date">11-11</span>
-                            test5
-                        </a>
                     </ul>
                 </div>
             </div>
 
         </div>
         <!--        侧栏-->
-        <div class="col-md-3  col-lg-3 col-sm-6 column" style="background: white;margin-top: 30px">
-            <br>
+        <div class="col-md-3  col-lg-3  col-sm-6 column" style="background: white;margin-top: 30px">
             <div class="row clearfix side-title" id="side-newest">
-                <div class="col-md-6 ">
-
-                    <p class="text-left">最新更新</p>
-
-                </div>
-                <div class="col-md-6">
-                    <!--                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>-->
+                <div id="side-1" class="col-md-12 ">
+                    <p class="text-left">&#12288;</p>
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-md-12 col-lg-12">
-                    <ul id="side-newest-content" class="list-group">
-                        <a class="list-group-item " href="#">111 </a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
+                <div class="col-md-12 col-lg-12 ">
+                    <ul id="side-1-content" class="list-group">
+                        <!--                        <a class="list-group-item " href="#">111 </a>-->
                     </ul>
                 </div>
             </div>
             <br>
             <div class="row clearfix side-title" id="side-channel">
-                <div class="col-md-12">
-                    <p class="text-left">
-                        所有栏目
-                    </p>
+                <div id="side-2" class="col-md-12">
+                    <p class="text-left">&#12288;</p>
                 </div>
             </div>
             <div class="row clearfix">
-                <div class="col-md-12 col-lg-12">
-                    <ul id="side-channel-content" class="list-group">
-                        <a class="list-group-item" href="#">channel 1</a>
-                        <a class="list-group-item" href="#">channel 2</a>
-                        <a class="list-group-item" href="#">channel 3</a>
-                        <a class="list-group-item" href="#">channel 4</a>
+                <div class="col-md-12 col-lg-12 col-sm-12 ">
+                    <ul id="side-2-content" class="list-group">
+                        <!--                        <a class="list-group-item" href="#">channel 1</a>-->
                     </ul>
                 </div>
             </div>
@@ -668,6 +617,8 @@
     </div>
 </div>
 <hr style="   height: 1px;border: none; background-color: #CCCCCC">
+
+
 <!--    <p>导航链接：</p>-->
 <div class="container" id="friend_link">
     <div class="row clearfix">
@@ -775,5 +726,29 @@
 <div class="feet-box">
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021-2022 Modify 中国银行保险监督管理委员会昭通监管分局</p>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title  text-center" id="myModalLabel">
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close" type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button id="modal-close-today" type="button" class="btn btn-primary" data-dismiss="modal">
+                    今天不再显示
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 </html>
