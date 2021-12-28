@@ -29,42 +29,53 @@
         }
     </style>
     <script>
+        var skin_root = "/"
+        var channel_name = [
+            {obj:$('#channel-1'), name:"党风廉政建设",sub:["党建宣传","中心组学习","支部建设"]},
+            {obj:$('#channel-2'), name:"党史学习",sub:["教育学习情况","我为群众办实事"]},
+            {obj:$('#channel-3'), name:"重点工作实践",sub:["党建宣传","中心组学习","支部建设"]},
+            {obj:$('#channel-4'), name:"监管统计",sub:["调研信息","统计信息披露","监管统计分析"]},
+            {obj:$('#channel-5'), name:"专题监管",sub:["案件防控","小微三农","消费者权益"]},
+            {obj:$('#channel-6'), name:"功能监管",sub:["现场监管","非现场监管","银行机构概览"]},
+        ]
+
         // 设置频道名称
-        function setChannelName(){
-            var channel_id2name = [
-                [$('#channel-1'), "党风廉政建设"],
-                [$('#channel-2'), "党史学习"],
-                [$('#channel-3'), "重点工作实践"],
-                [$('#channel-4'), "统计"],
-                [$('#channel-5'), "组织人事"],
-                [$('#channel-6'), "职工之家"],
-            ]
-            channel_id2name.forEach(function (element){
-                element[0].children("p").text(element[1])
+        function setChannelName() {
+            channel_name.forEach(function (element) {
+                element.obj.find("p").text(element.name)
+                var first = element.obj.find(".child-channel").find(":first")
+                element.sub.forEach(function (element){
+                    first.show()
+                    first.find("a").text(element);
+                    first = first.next()
+                    first.hide();
+                })
             })
         }
+
         // 绑定导航栏
-        function bind_nav(){
+        function bind_nav() {
             var top_channels = [
-                {name: "channel1", url: "https://baidu.com"},
-                {name: "channel2", url: "https://baidu.com"},
-                {name: "channel3", url: "https://baidu.com"},
-                {name: "channel4", url: "https://baidu.com"},
+                {name:"channel1", url:"https://baidu.com"},
+                {name:"channel2", url:"https://baidu.com"},
+                {name:"channel3", url:"https://baidu.com"},
+                {name:"channel4", url:"https://baidu.com"},
             ];
-            let txt = "";
+            var txt = "";
             top_channels.forEach(function (element) {
                 txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
             })
             $("#my-nav").append(txt);
         }
+
         //绑定轮播
-        function bind_carousel(){
+        function bind_carousel() {
             var Carousel = [
-                {src: "", alt: "11", href: "#"},
-                {src: "", alt: "22", href: "#"},
-                {src: "", alt: "33", href: "#"},
-                {src: "", alt: "44", href: "#"},
-                {src: "", alt: "55", href: "#"},
+                {src:"", alt:"11", href:"#"},
+                {src:"", alt:"22", href:"#"},
+                {src:"", alt:"33", href:"#"},
+                {src:"", alt:"44", href:"#"},
+                {src:"", alt:"55", href:"#"},
             ]
             txt = "";
             var i = 0
@@ -99,61 +110,104 @@
             $("#myCarousel-img").prepend(txt);
             // console.log($("#myCarousel-img:first-child").attr("class"))
         }
+
+        //绑定channel-top
+        function bing_channel_top() {
+            var contents = {
+                name:"领导活动1",
+                artists:[
+                    {name:"test1", date:new Date('2021-01-13'), href:"#"},
+                    {name:"test2", date:new Date('2021-11-12'), href:"#"},
+                    {name:"test3", date:new Date('2021-11-12'), href:"#"},
+                    {name:"test4", date:new Date('2021-11-12'), href:"#"},
+                    {name:"test5", date:new Date('2021-11-12'), href:"#"},
+                ],
+            }
+            var top = $("#channel-top")
+            top.find(".Channel-title").text(contents.name);
+            top.find(".list-group").html(getArtistsListHtml(contents.artists))
+        }
+
+        //网站图片、广告参数
+        function setObjAttrs() {
+
+            var attrs = [
+                {obj:$('#body_ad1'), attrs:{href:"#"}},
+                {obj:$('#body_img_ad1'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                {obj:$('#side_ad1'), attrs:{href:"#"}},
+                {obj:$('#side_ad2'), attrs:{href:"#"}},
+                {obj:$('#side_ad3'), attrs:{href:"#"}},
+                {obj:$('#side_img_ad1'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+                {obj:$('#side_img_ad2'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+                {obj:$('#side_img_ad3'), attrs:{src:skin_root + "images/sticky-ad.jpg", alt:""}},
+            ]
+            attrs.forEach(function (element) {
+                for (var key in element.attrs) {
+                    element.obj.attr(key, element.attrs[key])
+                }
+            })
+        }
+
+
         // 专门生成栏目文章类容，方便setChannelData生成数据
         function get_channel_contents() {
             var sub_2_1 = [
-                {name: "artist21", href: "#", date: "11-21"},
-                {name: "artist22", href: "#", date: "11-11"},
-                {name: "artist23", href: "#", date: "11-12"},
-                {name: "artist24", href: "#", date: "11-13"},
-                {name: "artist25", href: "#", date: "11-14"}
+                {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                {name:"artist25", href:"#", date:new Date("2021-11-11")}
             ]
             var sub_2_2 = [
-                {name: "artist21", href: "#", date: "11-11"},
-                {name: "artist22", href: "#", date: "11-11"},
-                {name: "artist23", href: "#", date: "11-12"},
-                {name: "artist24", href: "#", date: "11-13"},
-                {name: "artist25", href: "#", date: "11-14"}
+                {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                {name:"artist25", href:"#", date:new Date("2021-11-11")}
             ]
             var sub_2_3 = [
-                {name: "artist21", href: "#", date: "11-11"},
-                {name: "artist22", href: "#", date: "11-11"},
-                {name: "artist23", href: "#", date: "11-12"},
-                {name: "artist24", href: "#", date: "11-13"},
-                {name: "artist25", href: "#", date: "11-14"}
+                {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                {name:"artist25", href:"#", date:new Date("2021-11-11")}
             ]
             var channels_contents = {
-                "channel-1": {
-                    "子栏目1": [
-                        {name: "artist11", href: "#", date: "11-11"},
-                        {name: "artist2", href: "#", date: "11-11"},
-                        {name: "artist3", href: "#", date: "11-12"},
-                        {name: "artist4", href: "#", date: "11-13"},
-                        {name: "artist5", href: "#", date: "11-14"}
+                "channel-1" :{
+                    "子栏目1":[
+                        {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist2", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
                     ],
-                    "子栏目2": [
-                        {name: "artist21", href: "#", date: "11-12"},
-                        {name: "artist2", href: "#", date: "11-11"},
-                        {name: "artist3", href: "#", date: "11-12"},
-                        {name: "artist4", href: "#", date: "11-13"},
-                        {name: "artist5", href: "#", date: "11-14"}
+                    "子栏目2":[
+                        {name:"artist21", href:"#", date:new Date("2021-11-12")},
+                        {name:"artist2", href:"#", date:new Date("2021-11-12")},
+                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
                     ],
-                    "子栏目3": [
-                        {name: "artist31", href: "#", date: "11-13"},
-                        {name: "artist2", href: "#", date: "11-11"},
-                        {name: "artist3", href: "#", date: "11-12"},
-                        {name: "artist4", href: "#", date: "11-13"},
-                        {name: "artist5", href: "#", date: "11-14"}
+                    "子栏目3":[
+                        {name:"artist31", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist2", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist3", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist4", href:"#", date:new Date("2021-11-11")},
+                        {name:"artist5", href:"#", date:new Date("2021-11-11")}
                     ],
                 },
-                "channel-2": {
-                    "子栏目1": sub_2_1,
-                    "子栏目2": sub_2_2,
-                    "子栏目3": sub_2_3,
+                "channel-2":{
+                    "子栏目1":sub_2_1,
+                    "子栏目2":sub_2_2,
+                    "子栏目3":sub_2_3,
                 }
             }
             return channels_contents
         }
+        function setSubChannelName(){
+
+        }
+
         // 绑定channel数据 传递channel_id child_name 得到内容数据
         function setChannelData(channel_id, child_name) {
             // id 与 channels_contents 名字 的映射
@@ -166,33 +220,29 @@
                 ['channel-6', "channel-1"],
             ]);
             var channels_contents = get_channel_contents();
-            let txt = "";
-            console.log();
-            channels_contents[channel_map.get(channel_id)][child_name].forEach(function (element) {
-                txt += "                       <a href=\"" + element.href +
-                    "\" class=\"list-group-item \" style=\"font-size: 16px\">" +
-                    "<span class=\"badge badge-primary badge-date\">" + element.date +
-                    "</span>\n" + element.name + "\n" + " </a>\n"
-            })
-            return txt
+            return getArtistsListHtml(channels_contents[channel_map.get(channel_id)][child_name])
         }
-
-        $(document).ready(function () {
-            // 绑定导航栏
-            bind_nav();
-            //绑定轮播
-            bind_carousel();
-            setChannelName();
-        });
         // 鼠标悬停跟新栏目内容
-        $(document).ready(function () {
+        function updateArtistList(){
             $(".child-channel>li").mouseenter(function () {
 
                 $(this).siblings("li").removeClass("active")
                 $(this).addClass("active");
                 $(this).parent().next().html(setChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
             })
+        }
+        $(document).ready(function () {
+            // 绑定导航栏
+            bind_nav();
+            //绑定轮播
+            bind_carousel();
+            setChannelName();
+            setObjAttrs();
+            bing_channel_top();
+            hide_add();
+            updateArtistList();
         });
+
     </script>
 </head>
 <body>
@@ -239,7 +289,7 @@
     <div class="row clearfix">
         <div class="col-md-12  col-lg-12">
             <ul id="my-nav" class="nav nav-pills">
-                <li class="active "><a id="nav-home" class="head-nav" href="{dede:global.cfg_indexurl/}">主页</a></li>
+                <li class="active "><a id="nav-home" class="head-nav" href="/">主页</a></li>
 
             </ul>
 
@@ -317,9 +367,9 @@
                 <div class="col-md-1">
                 </div>
                 <!--                文章列表1-->
-                <div class="col-lg-6 col-md-6 col-sm-6 border1 ">
+                <div id="channel-top" class="col-lg-6 col-md-6 col-sm-6 border1 ">
                     <p class="Channel-title"><span class="glyphicon glyphicon-th-list"></span> 领导活动</p>
-                    <ul id="article-list-1" class="list-group">
+                    <ul class="list-group">
 
                         <a href="#" class="list-group-item " style="font-size: 16px">
                             <span class="badge badge-primary badge-date">11-11</span>
@@ -350,9 +400,8 @@
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 " style="position: relative;margin-top: 25px ;padding-bottom: 30px">
-                    <a href="#">
-                        <img class="img-rounded shadow" style="padding: 0" width="100%" src="images/xuexiqiangguo.jpg"
-                             alt="学习强国">
+                    <a id="body_ad1">
+                        <img id="body_img_ad1" class="img-rounded shadow" style="padding: 0" width="100%" alt="" src="">
                     </a>
                 </div>
 
@@ -626,15 +675,15 @@
         <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <a id="side_ad1"><img id="side_img_ad1" class="img-thumbnail" alt="" src=""></a>
         <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <a id="side_ad2"><img id="side_img_ad2" class="img-thumbnail" alt="" src=""></a>
         <button type="button" class="btn btn-default btn-xs pull-right hide-btn" style="font-weight: lighter;">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
-        <a href="#"><img class="img-thumbnail" src="images/sticky-ad.jpg" alt=""></a>
+        <a id="side_ad3"><img id="side_img_ad3" class="img-thumbnail" alt="" src=""></a>
         <!--        <a  href="#">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a>-->
     </div>
 </div>
