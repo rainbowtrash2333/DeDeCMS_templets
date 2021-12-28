@@ -31,6 +31,33 @@
     <script>
         var skin_root = "/"
 
+        function get_nav_contents() {
+            var nav_contents = [
+                {name:"主页", url:"/", sub:[{name:"home", url:"/"}]},
+                {
+                    name:"channel1",
+                    url:"https://baidu.com",
+                    sub:[{name:"sub1", url:"#"}, {name:"sub2", url:"#"}, {name:"sub3", url:"#"}]
+                },
+                {
+                    name:"channel2",
+                    url:"https://baidu.com",
+                    sub:[{name:"sub1", url:"#"}, {name:"sub2", url:"#"}, {name:"sub3", url:"#"}]
+                },
+                {
+                    name:"channel3",
+                    url:"https://baidu.com",
+                    sub:[{name:"sub1", url:"#"}, {name:"sub2", url:"#"}, {name:"sub3", url:"#"}]
+                },
+                {
+                    name:"channel4",
+                    url:"https://baidu.com",
+                    sub:[{name:"sub1", url:"#"}, {name:"sub2", url:"#"}, {name:"sub3", url:"#"}]
+                },
+            ];
+            return nav_contents
+        }
+
         // 专门生成栏目文章类容，方便setChannelData生成数据
         function get_channel_contents() {
             var sub_2_1 = [
@@ -110,7 +137,10 @@
                     first.show()
                     var sub_a = first.find("a");
                     sub_a.text(e.name);
-                    sub_a.attr("href", e.href)
+                    sub_a.attr("href", e.href);
+                    if (e.href === "#") {
+                        sub_a.attr("onclick", "return false;")
+                    }
                     first = first.next()
                     first.hide();
                 })
@@ -123,17 +153,29 @@
 
         // 绑定导航栏
         function bind_nav() {
-            var top_channels = [
-                {name:"channel1", url:"https://baidu.com"},
-                {name:"channel2", url:"https://baidu.com"},
-                {name:"channel3", url:"https://baidu.com"},
-                {name:"channel4", url:"https://baidu.com"},
-            ];
+            var top_channels = get_nav_contents();
             var txt = "";
             top_channels.forEach(function (element) {
                 txt += " <li><a class=\"head-nav\" href=\"" + element.url + "\">" + element.name + "</a></li>"
             })
-            $("#my-nav").append(txt);
+            var nav = $("#my-nav");
+            nav.html(txt);
+            nav.find(":first-child").addClass("active");
+            // $("#sub-nav").html("<a href=\"/\">home</a>");
+            $("#my-nav>li").mouseenter(function () {
+                txt = "";
+                console.log("test")
+                var channel_name = $(this).find("a").text()
+                top_channels.forEach(function (element) {
+                    if (element.name === channel_name) {
+                        element.sub.forEach(function (e) {
+                            txt += "<li><a href=\"" + e.url + "\">" + e.name + "</a></li>"
+                        })
+
+                    }
+                })
+                $("#sub-nav").html(txt);
+            })
         }
 
         //绑定轮播
@@ -179,10 +221,9 @@
             // console.log($("#myCarousel-img:first-child").attr("class"))
         }
 
-        //绑定channel-top
-        function bing_channel_top() {
+        function get_top_channel_contents() {
             var contents = {
-                name:"领导活动1",
+                name:"领导活动",
                 artists:[
                     {name:"test1", date:new Date('2021-01-13'), href:"#"},
                     {name:"test2", date:new Date('2021-11-12'), href:"#"},
@@ -191,9 +232,24 @@
                     {name:"test5", date:new Date('2021-11-12'), href:"#"},
                 ],
             }
+            return contents
+        }
+
+        //绑定channel-top
+        function bind_channel_top() {
+            var contents = get_top_channel_contents();
             var top = $("#channel-top")
             top.find(".Channel-title").text(contents.name);
             top.find(".list-group").html(getArtistsListHtml(contents.artists))
+
+        }
+
+        //绑定侧栏
+        function bind_side() {
+            $("#side-1>p").text("领导活动");
+            var contents_1 = get_top_channel_contents().artists;
+            console.log(get_channel_contents(contents_1))
+            $("#side-1-content").html(getArtistsListHtml(contents_1))
         }
 
         //网站图片、广告参数
@@ -222,7 +278,7 @@
             var contents = get_channel_contents()
             // id 与 channels_contents 名字 的映射
             var channels_contents = get_channel_contents();
-            var id = channel_id.substring(8, 9)-1
+            var id = channel_id.substring(8, 9) - 1
             var artists = []
             contents[id].sub.forEach(function (e) {
                 if (e.name === child_name) {
@@ -240,7 +296,38 @@
                 $(this).addClass("active");
                 $(this).parent().next().html(getChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
             })
+
+            var top_channels = get_nav_contents();
         }
+
+        // 激活modal
+        function setModal() {
+            var contents = get_top_channel_contents();
+            $(".modal-body").html(getArtistsListHtml(contents.artists));
+            $(".modal-title").text("领导动态");
+            var cookie_day = new Date(getCookie('date')).getDay();
+            var isShow = getCookie('isShow');
+
+            var today = new Date();
+            today.setTime(today.getTime());
+            if (isShow === "") {
+                $('#myModal').modal('show');
+            }
+            if (cookie_day !== today.getDay()) {
+                $('#myModal').modal('show');
+            } else if (isShow !== '0') {
+                $('#myModal').modal('show');
+            }
+            $('#modal-close-today').click(function () {
+                var now = new Date();
+                var time = now.getTime();
+                var expireTime = time + 1000 * 360000;
+                now.setTime(expireTime);
+                document.cookie = 'date=' + today.toString() + ';expires=' + now.toUTCString() + ';path=/';
+                document.cookie = 'isShow=0' + ';expires=' + now.toUTCString() + ';path=/';
+            })
+        }
+
 
         $(document).ready(function () {
             // 绑定导航栏
@@ -249,11 +336,12 @@
             bind_carousel();
             setChannelName();
             setObjAttrs();
-            bing_channel_top();
+            bind_channel_top();
             hide_add();
             updateArtistList();
+            setModal();
+            bind_side();
         });
-
     </script>
 </head>
 <body>
@@ -298,12 +386,15 @@
     <br>
     <!--    导航栏-->
     <div class="row clearfix">
-        <div class="col-md-12  col-lg-12">
+        <div class="col-md-12  col-lg-12 col-md-12">
             <ul id="my-nav" class="nav nav-pills">
-                <li class="active "><a id="nav-home" class="head-nav" href="/">主页</a></li>
-
             </ul>
-
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 col-lg-12 col-md-12">
+            <ul class="nav nav-tabs" id="sub-nav" style="border: none">
+            </ul>
         </div>
     </div>
     <hr>
@@ -328,38 +419,6 @@
                         </ol>
                         <!-- 轮播（Carousel）项目 -->
                         <div id="myCarousel-img" class="carousel-inner">
-
-                            <!--                            <div class="item active">-->
-                            <!--                                    <img id="carousel1" class="img-rounded CarouselImg" src="" alt="" href="#">-->
-                            <!--                                <div class="carousel-caption"></div>-->
-                            <!--                            </div>-->
-
-                            <!--                            <div class="item">-->
-                            <!--                                    <img id="carousel2" class="CarouselImg" src="" alt="">-->
-                            <!--                                <div class="carousel-caption">-->
-                            <!--                                        <h4>-->
-                            <!--                                            First Thumbnail label-->
-                            <!--                                        </h4>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                            <div class="item">-->
-                            <!--                                <a href="#">-->
-                            <!--                                    <img id="carousel3" class="CarouselImg" src="" alt="">-->
-                            <!--                                </a>-->
-                            <!--                                <div class="carousel-caption"></div>-->
-                            <!--                            </div>-->
-                            <!--                            <div class="item">-->
-                            <!--                                <a href="#">-->
-                            <!--                                    <img id="carousel4" class="CarouselImg" src="" alt="">-->
-                            <!--                                </a>-->
-                            <!--                                <div class="carousel-caption"></div>-->
-                            <!--                            </div>-->
-                            <!--                            <div class="item">-->
-                            <!--                                <a href="#">-->
-                            <!--                                    <img id="carousel5" class="CarouselImg" src="" alt="">-->
-                            <!--                                </a>-->
-                            <!--                                <div class="carousel-caption"></div>-->
-                            <!--                            </div>-->
                             <!-- 轮播（Carousel）导航 -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -482,41 +541,27 @@
         <!--        侧栏-->
         <div class="col-md-3  col-lg-3  col-sm-6 column" style="background: white;margin-top: 30px">
             <div class="row clearfix side-title" id="side-newest">
-                <div class="col-md-6 ">
-
-                    <p class="text-left">最新更新</p>
-
-                </div>
-                <div class="col-md-6">
-                    <!--                    <p class="text-right" style="margin: 5px 0 0 0">更多</p>-->
+                <div id="side-1" class="col-md-12 ">
+                    <p class="text-left">&#12288;</p>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12 ">
-                    <ul id="side-newest-content" class="list-group">
-                        <a class="list-group-item " href="#">111 </a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
-                        <a class="list-group-item " href="#">111</a>
+                    <ul id="side-1-content" class="list-group">
+                        <!--                        <a class="list-group-item " href="#">111 </a>-->
                     </ul>
                 </div>
             </div>
             <br>
             <div class="row clearfix side-title" id="side-channel">
-                <div class="col-md-12">
-                    <p class="text-left">
-                        所有栏目
-                    </p>
+                <div id="side-2" class="col-md-12">
+                    <p class="text-left">&#12288;</p>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12 col-sm-12 ">
-                    <ul id="side-channel-content" class="list-group">
-                        <a class="list-group-item" href="#">channel 1</a>
-                        <a class="list-group-item" href="#">channel 2</a>
-                        <a class="list-group-item" href="#">channel 3</a>
-                        <a class="list-group-item" href="#">channel 4</a>
+                    <ul id="side-2-content" class="list-group">
+                        <!--                        <a class="list-group-item" href="#">channel 1</a>-->
                     </ul>
                 </div>
             </div>
@@ -651,6 +696,28 @@
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021-2022 Modify 中国银行保险监督管理委员会昭通监管分局</p>
 </div>
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close" type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button id="modal-close-today" type="button" class="btn btn-primary" data-dismiss="modal">
+                    今天不再显示
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 </body>
 </html>
