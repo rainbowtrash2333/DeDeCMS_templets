@@ -40,16 +40,16 @@ hr {
 }
 
 
-#nav >li>a{
+#nav > li > a {
     font-size: 20px;
     font-weight: bold;
 }
 
-.head-nav{
+.head-nav {
     font-size: 20px;
     font-weight: bold;
-    text-shadow: 1px 1px 1px  rgb(2, 43, 14);
-    letter-spacing: 2px;		/* 设置文字间距 */
+    text-shadow: 1px 1px 1px rgb(2, 43, 14);
+    letter-spacing: 2px; /* 设置文字间距 */
 }
 
 
@@ -116,19 +116,25 @@ img.shadow {
     margin-bottom: 10px;
     font-weight: bold;
 }
-.side-title p{
+
+.side-title p {
     font-size: 20px;
     margin: 2px 2px 0 0;
     color: #337AD9;
 }
 
-#channel-1 >.list-group > a, #channel-2 >.list-group > a, #channel-3 >.list-group > a, #channel-4 >.list-group > a, #channel-5 >.list-group > a, #channel-6 >.list-group > a{
+#channel-1 > .list-group > a, #channel-2 > .list-group > a, #channel-3 > .list-group > a, #channel-4 > .list-group > a, #channel-5 > .list-group > a, #channel-6 > .list-group > a {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 16px;
+
 }
 
+.channel_box {
+    height: 315px;
+    /*border: 1px solid blue;*/
+}
 
 .child-channel {
     background-color: #DDFFFF
@@ -144,9 +150,9 @@ img.shadow {
 }
 
 .sticky-bar {
-    position: fixed;	        /* 设置fixed固定定位 */
-    bottom: 20px;		/* 距离浏览器窗口下边框20px */
-    right: 20px;		/* 距离浏览器窗口右边框20px */
+    position: fixed; /* 设置fixed固定定位 */
+    bottom: 20px; /* 距离浏览器窗口下边框20px */
+    right: 20px; /* 距离浏览器窗口右边框20px */
     /*top: 200px;*/
     /*left: 20px;*/
     width: 12%;
@@ -154,6 +160,7 @@ img.shadow {
     min-width: 200px;
     z-index: 10;
 }
+
 /*.sticky-bar a {*/
 /*    display: block;			!* 将<a>标签设为块元素，用于美化样式 *!*/
 /*    text-decoration: none;		!* 取消超链接下画线 *!*/
@@ -164,18 +171,25 @@ img.shadow {
 /*    border-radius: 5px;			!* 设置圆角矩形 *!*/
 /*    letter-spacing: 2px;		!* 设置文字间距 *!*/
 /*}*/
-.sticky-bar img{
+.sticky-bar img {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 3px;
 }
-#sub-nav a{
+
+#sub-nav a {
     /*color: #333;			!* 设置文本颜色 *!*/
     font-weight: lighter;
     font-size: 16px;
     /*background-color: #f2f2f2;		!* 设置背景颜色 *!*/
     /*border: 1px solid #ccc;		!* 设置边框样式 *!*/
     /*padding: 10px 20px;			!* 设置内边距 *!*/
-    border-radius: 5px;			/* 设置圆角矩形 */
-    letter-spacing: 1px;		/* 设置文字间距 */
+    border-radius: 5px; /* 设置圆角矩形 */
+    letter-spacing: 1px; /* 设置文字间距 */
+}
+
+#carousel_leader {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, 30%);
 }
