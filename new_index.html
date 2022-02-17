@@ -52,23 +52,34 @@
 
         //绑定领导动态轮播
         function bind_carousel() {
-            var Carousel = [
-                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"#"},
+            var Carousel_leader = [
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
                 {src:skin_root + "images/sticky-ad-lp.jpg", alt:"222", href:"#"},
-                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"333", href:"#"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"333", href:"/"},
                 {src:skin_root + "images/sticky-ad-lp.jpg", alt:"444", href:"#"},
-                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"555", href:"#"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"555", href:"http://127.0.0.1/"},
             ];
-            var img = $("#carousel-leader-img").find("img:first-child");
-            Carousel.forEach(function (element) {
-                element.src = element.src.split("-lp").join("")
-                img.attr("src", element.src);
-                img.attr("alt", element.alt);
+            var Carousel_timeline = [
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"222", href:"#"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"333", href:"/"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"444", href:"#"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"555", href:"http://127.0.0.1/"},
+            ];
+            var bind_func = function (obj, data) {
+                data.forEach(function (element) {
+                    element.src = element.src.split("-lp").join("")
+                    obj.attr("src", element.src);
+                    obj.attr("alt", element.alt);
 
-                img.attr("href", element.href);
-                img.next().find("h4").text(element.alt)
-                img = img.parent().next().find("img");
-            })
+                    obj.attr("href", element.href);
+                    obj.next().find("h5").text(element.alt)
+                    obj = obj.parent().next().find("img");
+                })
+            }
+            // var img = $("#carousel-leader-img").find("img:first-child");
+            bind_func($("#carousel-leader-img").find("img:first-child"), Carousel_leader)
+            bind_func($("#carousel_timeline-img").find("img:first-child"), Carousel_timeline)
         }
 
         function get_nav_contents() {
@@ -124,10 +135,37 @@
             })
         }
 
+        // 绑定channel数据 传递channel_id child_name 得到内容数据
+        function getChannelData(channel_id, child_name) {
+            var contents = get_channel_contents()
+            // id 与 channels_contents 名字 的映射
+            var channels_contents = get_channel_contents();
+            var id = channel_id.substring(8, 9) - 1
+            var artists = []
+            contents[id].sub.forEach(function (e) {
+                if (e.name === child_name) {
+                    artists = e.artists;
+                }
+            })
+            return getArtistsListHtml(artists)
+        }
+
+        // 鼠标悬停跟新栏目内容
+        function updateArtistList() {
+            $(".child-channel>li").mouseenter(function () {
+
+                $(this).siblings("li").removeClass("active")
+                $(this).addClass("active");
+                $(this).parent().next().html(getChannelData($(this).parent().parent().attr("id"), $(this).children("a").text()))
+            })
+
+            var top_channels = get_nav_contents();
+        }
+
         // 专门生成栏目文章类容，方便setChannelData生成数据
         function get_channel_contents() {
             var sub_2_1 = [
-                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist111", href:"#", date:new Date("2022-1-11")},
                 {name:"artist12", href:"#", date:new Date("2021-11-11")},
                 {name:"artist13", href:"#", date:new Date("2021-11-11")},
                 {name:"artist14", href:"#", date:new Date("2021-11-11")},
@@ -149,44 +187,70 @@
             ]
             var channels_contents = [
                 {
-                    obj:$('#channel-1'), name:"党风廉政建设", sub:[
-                        {name:"党建宣传", href:"", artists:sub_2_1},
-                        {name:"中心组学习", href:"", artists:sub_2_2},
-                        {name:"支部建设", href:"", artists:sub_2_3},
+                    obj:$('#channel-1'), name:"领导动态", href:"/", sub:[
+                        {name:"", href:"", artists:sub_2_1},
                     ]
                 },
                 {
-                    obj:$('#channel-2'), name:"党史学习", sub:[
-                        {name:"教育学习情况", href:"", artists:sub_2_2},
-                        {name:"我为群众办实事", href:"", artists:sub_2_1},
+                    obj:$('#channel-2'), name:"公告通知", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_2},
                     ]
                 },
                 {
-                    obj:$('#channel-3'), name:"监管统计", sub:[
-                        {name:"调研信息", href:"", artists:sub_2_1},
-                        {name:"统计信息披露", href:"", artists:sub_2_1},
-                        {name:"监管统计分析", href:"", artists:sub_2_1},
+                    obj:$('#channel-3'), name:"党的建设", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
                     ]
                 },
                 {
-                    obj:$('#channel-4'), name:"专题监管", sub:[
+                    obj:$('#channel-4'), name:"廉政建设", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-5'), name:"党务政务公开", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-6'), name:"工作部署", href:"#", sub:[
+                        {name:"工作部署", href:"", artists:sub_2_1},
+                        {name:"督察督办", href:"", artists:sub_2_1},
+                        {name:"政务通报", href:"", artists:sub_2_1},
+                        {name:"保密教育", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-7'), name:"统计信息", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-8'), name:"法律法规", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-9'), name:"科室动态", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-10'), name:"学习培训", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
+                    ]
+                },
+                {
+                    obj:$('#channel-11'), name:"监管阵地", href:"#", sub:[
+                        {name:"智能监管", href:"", artists:sub_2_1},
+                        {name:"金融服务", href:"", artists:sub_2_1},
+                        {name:"消费者权益保护", href:"", artists:sub_2_1},
                         {name:"案件防控", href:"", artists:sub_2_1},
-                        {name:"小微三农", href:"", artists:sub_2_1},
-                        {name:"消费者权益", href:"", artists:sub_2_1},
+                        {name:"组织人事", href:"", artists:sub_2_1},
                     ]
                 },
                 {
-                    obj:$('#channel-5'), name:"功能监管", sub:[
-                        {name:"现场监管", href:"", artists:sub_2_1},
-                        {name:"非现场监管", href:"", artists:sub_2_1},
-                        {name:"银行机构概览", href:"", artists:sub_2_1},
-                    ]
-                },
-                {
-                    obj:$('#channel-6'), name:"政策法规", sub:[
-                        {name:"法律法规", href:"", artists:sub_2_1},
-                        {name:"管理制度", href:"", artists:sub_2_1},
-                        {name:"保密工作", href:"", artists:sub_2_1},
+                    obj:$('#channel-12'), name:"群团工作", href:"#", sub:[
+                        {name:"", href:"", artists:sub_2_1},
                     ]
                 },
             ]
@@ -198,6 +262,7 @@
             var contents = get_channel_contents()
             contents.forEach(function (element) {
                 element.obj.find("p").text(element.name)
+                element.obj.find("a").attr("href", element.href)
                 var first = element.obj.find(".child-channel").find(":first")
                 element.sub.forEach(function (e) {
                     first.show()
@@ -215,15 +280,24 @@
             })
         }
 
+
         $(document).ready(function () {
+            if (window.outerWidth > 1536) {
+                document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1536
+            }
             setObjAttrs();
             bind_carousel();
             bind_nav();
             setChannelName();
             hide_add();
-           if (window.outerWidth > 1536){
-               document.getElementsByTagName('body')[0].style.zoom=window.outerWidth/1536
-           }
+            Carousel_href();
+            updateArtistList();
+            moveit("move1");
+            moveit("move2");
+            moveit("move3");
+            moveit("move4");
+            moveit("move5");
+
         })
     </script>
 </head>
@@ -283,32 +357,122 @@
     <hr>
     <br>
     <br>
-    <!--    第一列-->
     <div class="row clearfix">
         <!--        侧栏-->
         <div class="col-md-2  col-lg-2  hidden-sm hidden-xs column" style="background: white;margin-top: 30px">
             <div class="row clearfix side-title" id="side-newest">
                 <div id="side-1" class="col-md-12 ">
-                    <p class="text-left">&#12288;</p>
+                    <p class="text-left">工作情况</p>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12 ">
-                    <ul id="side-1-content" class="list-group">
-                        <!--                        <a class="list-group-item " href="#">111 </a>-->
+                    <ul class="list-group side-content">
+                        <a class="list-group-item" href="#">月度重点工作</a>
+                        <a class="list-group-item" href="#">办公电话</a>
                     </ul>
                 </div>
             </div>
             <br>
             <div class="row clearfix side-title" id="side-channel">
                 <div id="side-2" class="col-md-12">
-                    <p class="text-left">&#12288;</p>
+                    <p class="text-left">快速导航</p>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12 col-sm-12 ">
-                    <ul id="side-2-content" class="list-group">
-                        <!--                        <a class="list-group-item" href="#">channel 1</a>-->
+                    <ul class="list-group">
+                        <button type="button" class="btn btn-primary btn1" data-toggle="dropdown">
+                            登录
+                        </button>
+                        <div class="btn-group dropdown btn1">
+                            <button type="button" class="btn btn-close-white dropdown-toggle btn1"
+                                    data-toggle="dropdown">
+                                <span class="caret"></span>
+                                银保监会网站
+
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://10.1.3.101/">银保监会内网</a></li>
+                                <li><a href="http://10.1.3.67/">银保监会内网（旧）</a></li>
+                                <li><a href="http://10.1.3.15">内网邮件系统</a></li>
+                                <li><a href="http://10.1.3.58/zh-hans/default.htm"> 总会防病毒网站</a></li>
+                                <li><a href="http://10.1.3.67/upPass/uppass.jsp">综合办公平台密码修改</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown btn1">
+                            <button type="button" class="btn dropdown dropdown-toggle btn1" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                银保监会应用系统
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://10.1.17.226/acts/">统一用户管理系统</a></li>
+                                <li><a href="http://10.1.5.50/index.jsp">银监会财务系统系统</a></li>
+                                <li><a href="http://10.1.5.67:9797/zcgl">行政事业单位资产管理信息系统</a></li>
+                                <li><a href="http://10.1.162.62:9080/main/index.jsp"> 客户风险统计系统</a></li>
+                                <li><a href="http://19.10.250.30/nacao/login.jsp">银码信息共享系统</a></li>
+                                <li><a href="http://10.1.2.12/SMMIS/loginAction.do">机构董事和高管管理系统</a></li>
+                                <li><a href="http://10.1.2.12/IMIS/login/login.html">金融机构及市场准入管理系统</a></li>
+                                <li><a href="http://10.1.17.51:9080/licence/">法规信息管理系统</a></li>
+                                <li><a href="http://10.1.17.120/foreground/index.do">银行监管业务知识学习考试平台</a></li>
+                                <li><a href="http://10.1.4.30/">多媒体录播服务器</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown btn1">
+                            <button type="button" class="btn dropdown dropdown-toggle btn1" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                云南局应用系统
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://10.128.12.70/">云南监管局内网</a></li>
+                                <li><a href="http://10.128.250.66:8091/">金融专网首页</a></li>
+                                <li><a href="http://10.128.250.67/YNYJJ/">双子星”平台</a></li>
+                                <li><a href="http://10.128.12.68:9900/YNYJJ/logon"> 信息科技监管数据平台</a></li>
+                                <li><a href="http://9.0.81.1:7001/shwebroot/index.do">人行企业信用信息基础数据库系统</a></li>
+                                <li><a href="http://10.128.12.196/NetCenter/zh-hans/default.htm">省局防病毒网站</a></li>
+                                <li><a href="http://10.128.12.102/index.php">省局在线考试系统</a></li>
+                                <li><a href="http://10.128.18.94/">多媒体发布平台</a></li>
+                                <li><a href="http://10.128.12.199:8012/">RTX即时通信平台</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown btn1">
+                            <button type="button" class="btn dropdown dropdown-toggle btn1" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                云南各分局
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://10.128.40.13/">曲靖监管分局</a></li>
+                                <li><a href="http://10.128.48.17/">玉溪监管分局</a></li>
+                                <li><a href="http://10.128.56.219/default.aspx">红河监管分局</a></li>
+                                <li><a href="http://10.128.64.21/"> 文山监管分局</a></li>
+                                <li><a href="http://10.128.72.2:8088/">普洱监管分局</a></li>
+                                <li><a href="http://10.128.80.32/">版纳监管分局</a></li>
+                                <li><a href="http://10.128.88.21/">楚雄监管分局</a></li>
+                                <li><a href="http://10.128.96.165/YNYJJ/welcome.jsp">大理监管分局</a></li>
+                                <li><a href="http://10.128.104.60:3861/">保山监管分局</a></li>
+                                <li><a href="http://10.128.120.20/YNYJJ/welcome.jsp">丽江监管分局</a></li>
+                                <li><a href="http://10.128.128.100/">怒江监管分局</a></li>
+                                <li><a href="http://10.128.136.121/">保山监管分局</a></li>
+                                <li><a href="http://10.128.144.68/YNYJJ/welcome.jsp">临沧监管分局</a></li>
+                                <li><a href="http://10.128.112.19/">德宏监管分局</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="btn-group dropdown btn1">
+                            <button type="button" class="btn btn-close-white dropdown-toggle btn1"
+                                    data-toggle="dropdown">
+                                <span class="caret"></span>
+                                省外监管局
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="http://10.120.1.5/">重庆银监局</a></li>
+                                <li><a href="http://10.124.0.13/">贵州银监局</a></li>
+                                <li><a href="http://10.116.0.13/">四川监管局</a></li>
+                                <li><a href="http://10.52.8.106/"> 江苏监管局</a></li>
+                                <li><a href="http://10.52.98.1/">常州监管分局</a></li>
+                            </ul>
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -316,11 +480,11 @@
         <!--        文章列表-->
         <div class="col-md-10  col-lg-10 col-sm-12 column">
             <!--                栏目1 领导活动-->
-            <div  class="col-md-8  col-lg-8 col-sm-12 column channel_box">
+            <div class="col-md-8  col-lg-8 col-sm-12 column channel_box">
                 <div class="row clearfix">
                     <!--    领导动态轮播-->
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div id="carousel_leader" class="carousel slide" >
+                    <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs ">
+                        <div id="carousel_leader" class="carousel slide">
                             <!-- 轮播（Carousel）指标 -->
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel_leader" data-slide-to="0" class="active"></li>
@@ -334,24 +498,24 @@
                                 <div class="item active">
                                     <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
                                     <div class="carousel-caption">
-                                        <h4></h4><br><br>
+                                        <h5></h5>
                                     </div>
                                 </div>
                                 <div class="item">
                                     <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
-                                    <div class="carousel-caption"><h4></h4><br><br></div>
+                                    <div class="carousel-caption"><h5></h5></div>
                                 </div>
                                 <div class="item">
                                     <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
-                                    <div class="carousel-caption"><h4></h4><br><br></div>
+                                    <div class="carousel-caption"><h5></h5></div>
                                 </div>
                                 <div class="item">
                                     <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
-                                    <div class="carousel-caption"><h4></h4><br><br></div>
+                                    <div class="carousel-caption"><h5></h5></div>
                                 </div>
                                 <div class="item">
                                     <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
-                                    <div class="carousel-caption"><h4></h4><br><br></div>
+                                    <div class="carousel-caption"><h5></h5></div>
                                 </div>
 
                                 <!-- 轮播（Carousel）导航 -->
@@ -372,7 +536,8 @@
                         </div>
                     </div>
                     <div id="channel-1" class="col-lg-6 col-md-6 col-sm-6 ">
-                        <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span> 栏目1</p>
+                        <a href="#"><p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>
+                            栏目1</p></a>
                         <ul class="list-group">
                         </ul>
                     </div>
@@ -388,29 +553,117 @@
                 </ul>
             </div>
 
-            <!--            栏目3-->
-            <div id="channel-3" class="col-md-8  col-lg-8 col-sm-12 column channel_box">
-                <ul class="nav nav-tabs child-channel">
-                    <li class="active"><a href="#">工作部署</a></li>
-                    <li><a href="#">子栏目2</a></li>
-                    <li><a href="#">子栏目3</a></li>
-                    <li><a href="#">子栏目3</a></li>
-
-                </ul>
+            <!--                栏目3-->
+            <div id="channel-3" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+                <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
                 <ul class="list-group">
                 </ul>
             </div>
-            <!--            栏目4-->
-            <div id="channel-4" class="col-md-4 col-lg-4 col-sm-6  column channel_box">
+            <!--                栏目4-->
+            <div id="channel-4" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+                <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
+                <ul class="list-group">
+                </ul>
+            </div>
+            <div id="channel-5" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+                <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
+                <ul class="list-group">
+                </ul>
+            </div>
+
+
+            <div id="channel-6" class="col-md-8  col-lg-8 col-sm-8 column channel_box">
+                <ul class="nav nav-tabs child-channel ">
+                    <li class="test active"><a target='_blank' href="#">子栏目1</a></li>
+                    <li class=""><a target='_blank' href="#">子栏目2</a></li>
+                    <li class=""><a target='_blank' href="#">子栏目3</a></li>
+
+                </ul>
+                <ul class="list-group">
+
+                </ul>
+            </div>
+
+            <div id="channel-7" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+                <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目2</p>
+                <ul class="list-group">
+                </ul>
+            </div>
+            <div id="channel-8" class="col-md-4 col-lg-4 col-sm-6  column channel_box">
                 <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目4</p>
 
                 <ul class="list-group">
 
                 </ul>
             </div>
+            <div class="col-md-8  col-lg-8 col-sm-12 column channel_box">
+                <div class="row clearfix">
+                    <div id="channel-9" class="col-lg-6 col-md-6 col-sm-6 channel_box">
+                        <a href="#"><p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>
+                            栏目1</p></a>
+                        <ul class="list-group">
+                        </ul>
+                    </div>
+                    <!--    科室动态轮播-->
+                    <div class="col-lg-6 col-md-6  col-sm-6 hidden-xs">
+                        <div id="carousel_timeline" class="carousel slide">
+                            <!-- 轮播（Carousel）指标 -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel_timeline" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel_timeline" data-slide-to="1"></li>
+                                <li data-target="#carousel_timeline" data-slide-to="2"></li>
+                                <li data-target="#carousel_timeline" data-slide-to="3"></li>
+                                <li data-target="#carousel_timeline" data-slide-to="4"></li>
+                            </ol>
+                            <!-- 轮播（Carousel）项目 -->
+                            <div id="carousel_timeline-img" class="carousel-inner">
+                                <div class="item active">
+                                    <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
+                                    <div class="carousel-caption">
+                                        <h5></h5>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
+                                    <div class="carousel-caption"><h5></h5></div>
+                                </div>
+                                <div class="item">
+                                    <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
+                                    <div class="carousel-caption"><h5></h5></div>
+                                </div>
+                                <div class="item">
+                                    <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
+                                    <div class="carousel-caption"><h5></h5></div>
+                                </div>
+                                <div class="item">
+                                    <img isLoad="false" class="img-rounded CarouselImg" src="#" alt="" href="#">
+                                    <div class="carousel-caption"><h5></h5></div>
+                                </div>
 
-            <!--                        栏目5-->
-            <div id="channel-5" class="col-md-4  col-lg-4 col-sm-6 column channel_box">
+                                <!-- 轮播（Carousel）导航 -->
+                                <a class="left carousel-control" href="#carousel_timeline" role="button"
+                                   data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel_timeline" role="button"
+                                   data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div id="channel-10" class="col-md-4  col-lg-4 col-sm-6 column channel_box">
 
                 <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目5</p>
 
@@ -418,13 +671,39 @@
 
                 </ul>
             </div>
-            <!--                栏目6-->
-            <div id="channel-6" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+            <div id="channel-11" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
+                <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
+                <ul class="list-group">
+                </ul>
+            </div>
+            <div id="channel-12" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
                 <p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>栏目6</p>
                 <ul class="list-group">
                 </ul>
             </div>
         </div>
+    </div>
+
+    <div class="row clearfix">
+        <div id="foot-img-box" class="col-lg-12 col-md-12 col-sm-12">
+            <div class="move_box" id="move1" style="left: 0">
+                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+            </div>
+            <div class="move_box" id="move2" style="left: 25%">
+                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+            </div>
+            <div class="move_box" id="move3" style="left: 50%">
+                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+            </div>
+            <div class="move_box" id="move4" style="left: 75%">
+                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+            </div>
+            <div class="move_box" id="move5" style="left: 100%">
+                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+            </div>
+
+        </div>
+
     </div>
     <!--    广告栏-->
     <div class="sticky-bar">
@@ -445,110 +724,8 @@
 </div>
 
 <hr style="   height: 1px;border: none; background-color: #CCCCCC">
-<!--    <p>导航链接：</p>-->
-<div class="container" id="friend_link">
-    <div class="row clearfix">
-        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    &#12288;银保监会网站&#12288;
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://10.1.3.101/">银保监会内网</a></li>
-                    <li><a href="http://10.1.3.67/">银保监会内网（旧）</a></li>
-                    <li><a href="http://10.1.3.15">内网邮件系统</a></li>
-                    <li><a href="http://10.1.3.58/zh-hans/default.htm"> 总会防病毒网站</a></li>
-                    <li><a href="http://10.1.3.67/upPass/uppass.jsp">综合办公平台密码修改</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    银保监会应用系统
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://10.1.17.226/acts/">统一用户管理系统</a></li>
-                    <li><a href="http://10.1.5.50/index.jsp">银监会财务系统系统</a></li>
-                    <li><a href="http://10.1.5.67:9797/zcgl">行政事业单位资产管理信息系统</a></li>
-                    <li><a href="http://10.1.162.62:9080/main/index.jsp"> 客户风险统计系统</a></li>
-                    <li><a href="http://19.10.250.30/nacao/login.jsp">银码信息共享系统</a></li>
-                    <li><a href="http://10.1.2.12/SMMIS/loginAction.do">机构董事和高管管理系统</a></li>
-                    <li><a href="http://10.1.2.12/IMIS/login/login.html">金融机构及市场准入管理系统</a></li>
-                    <li><a href="http://10.1.17.51:9080/licence/">法规信息管理系统</a></li>
-                    <li><a href="http://10.1.17.120/foreground/index.do">银行监管业务知识学习考试平台</a></li>
-                    <li><a href="http://10.1.4.30/">多媒体录播服务器</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    云南局应用系统
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://10.128.12.70/">云南监管局内网</a></li>
-                    <li><a href="http://10.128.250.66:8091/">金融专网首页</a></li>
-                    <li><a href="http://10.128.250.67/YNYJJ/">双子星”平台</a></li>
-                    <li><a href="http://10.128.12.68:9900/YNYJJ/logon"> 信息科技监管数据平台</a></li>
-                    <li><a href="http://9.0.81.1:7001/shwebroot/index.do">人行企业信用信息基础数据库系统</a></li>
-                    <li><a href="http://10.128.12.196/NetCenter/zh-hans/default.htm">省局防病毒网站</a></li>
-                    <li><a href="http://10.128.12.102/index.php">省局在线考试系统</a></li>
-                    <li><a href="http://10.128.18.94/">多媒体发布平台</a></li>
-                    <li><a href="http://10.128.12.199:8012/">RTX即时通信平台</a></li>
 
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    &#12288;云南各分局 &#12288;
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://10.128.40.13/">曲靖监管分局</a></li>
-                    <li><a href="http://10.128.48.17/">玉溪监管分局</a></li>
-                    <li><a href="http://10.128.56.219/default.aspx">红河监管分局</a></li>
-                    <li><a href="http://10.128.64.21/"> 文山监管分局</a></li>
-                    <li><a href="http://10.128.72.2:8088/">普洱监管分局</a></li>
-                    <li><a href="http://10.128.80.32/">版纳监管分局</a></li>
-                    <li><a href="http://10.128.88.21/">楚雄监管分局</a></li>
-                    <li><a href="http://10.128.96.165/YNYJJ/welcome.jsp">大理监管分局</a></li>
-                    <li><a href="http://10.128.104.60:3861/">保山监管分局</a></li>
-                    <li><a href="http://10.128.120.20/YNYJJ/welcome.jsp">丽江监管分局</a></li>
-                    <li><a href="http://10.128.128.100/">怒江监管分局</a></li>
-                    <li><a href="http://10.128.136.121/">保山监管分局</a></li>
-                    <li><a href="http://10.128.144.68/YNYJJ/welcome.jsp">临沧监管分局</a></li>
-                    <li><a href="http://10.128.112.19/">德宏监管分局</a></li>
 
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    &#12288;省外监管局 &#12288;
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="http://10.120.1.5/">重庆银监局</a></li>
-                    <li><a href="http://10.124.0.13/">贵州银监局</a></li>
-                    <li><a href="http://10.116.0.13/">四川监管局</a></li>
-                    <li><a href="http://10.52.8.106/"> 江苏监管局</a></li>
-                    <li><a href="http://10.52.98.1/">常州监管分局</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs"></div>
-
-    </div>
-</div>
 <div class="feet-box">
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021-2022 Modify 中国银行保险监督管理委员会昭通监管分局</p>
 </div>

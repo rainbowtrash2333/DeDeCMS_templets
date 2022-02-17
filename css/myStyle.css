@@ -32,6 +32,7 @@ hr {
     padding: 0;
 }
 
+
 .border1 {
     border-radius: 15px;
     border: 1px solid #bebebe;
@@ -52,19 +53,6 @@ hr {
     letter-spacing: 2px; /* 设置文字间距 */
 }
 
-
-p.Channel-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #337AD9;
-    border: 2px transparent;
-    border-bottom-style: solid;
-    Padding: 5px 0 10px 0;
-    margin-bottom: 20px;
-    border-image: linear-gradient(to right, #0b5ed7, #EEEEEE 90%);
-    border-image-slice: 10;
-    /*text-shadow: 0 1px  #0C2695;*/
-}
 
 .badge.badge-date {
     font-weight: lighter;
@@ -100,6 +88,7 @@ img.shadow {
 }
 
 .feet-box {
+    width: 100%;
     border-width: 5px 0 0 0;
     border-style: solid none none none;
     border-radius: 5px 5px 0 0;
@@ -123,6 +112,12 @@ img.shadow {
     color: #337AD9;
 }
 
+.side-content a {
+    border-style: none none dashed none;
+    margin-bottom: 3px;
+
+}
+
 #channel-1 > .list-group > a, #channel-2 > .list-group > a, #channel-3 > .list-group > a, #channel-4 > .list-group > a, #channel-5 > .list-group > a, #channel-6 > .list-group > a {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -137,7 +132,33 @@ img.shadow {
 }
 
 .child-channel {
-    background-color: #DDFFFF
+    background: linear-gradient(to right, pink, #EEEEEE 95%);
+    /*background-color: #DDFFFF;*/
+    font-size: 15px;
+    font-weight: bold;
+    color: #337AD9;
+    border: 2px transparent;
+    border-bottom-style: solid;
+    Padding: 0 5px 0 5px;
+    margin-bottom: 15px;
+
+}
+
+p.child-channel {
+
+}
+
+p.Channel-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #337AD9;
+    border: 2px transparent;
+    border-bottom-style: solid;
+    Padding: 5px 0 10px 0;
+    margin-bottom: 20px;
+    border-image: linear-gradient(to right, #0b5ed7, #EEEEEE 90%);
+    border-image-slice: 10;
+    /*text-shadow: 0 1px  #0C2695;*/
 }
 
 #side-newest-content > .list-group-item {
@@ -188,8 +209,45 @@ img.shadow {
     letter-spacing: 1px; /* 设置文字间距 */
 }
 
-#carousel_leader {
+#carousel_leader #carousel_timeline {
+    max-width: 300px;
+    max-height: 200px;
     position: absolute;
     top: 50%;
     transform: translate(0, 30%);
+}
+
+
+.btn1 {
+    width: 100%;
+    margin: 3px;
+}
+
+#foot-img-box {
+    z-index: 1;
+    overflow: hidden;
+    height: 200px;
+    background: linear-gradient(to right, rgba(127, 127, 127, 255) 1px, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0) 90%, rgba(127, 127, 127, 255) 100%);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+
+.move_box {
+    z-index: -1;
+    position: absolute;
+    width: 20%;
+    height: 150px;
+    margin: 25px;
+    /*border: #0c4128;*/
+}
+.move_box > img {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: -2;
+    max-width: 100%;
+    max-height: 100%;
 }

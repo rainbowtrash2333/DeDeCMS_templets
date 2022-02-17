@@ -186,7 +186,7 @@
             ];
             var img = $("#myCarousel-img").find("img:first-child");
             Carousel.forEach(function (element) {
-                img.attr("src", element.src);
+                img.attr("src", element.arc);
                 img.attr("alt", element.alt);
                 element.href = element.href.split("-lp").join("")
                 img.attr("href", element.href);
