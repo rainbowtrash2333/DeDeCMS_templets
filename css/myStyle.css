@@ -209,14 +209,17 @@ p.Channel-title {
     letter-spacing: 1px; /* 设置文字间距 */
 }
 
-#carousel_leader #carousel_timeline {
+#carousel_leader img, #carousel_timeline img {
     max-width: 300px;
     max-height: 200px;
+
+}
+#carousel_leader, #carousel_timeline{
     position: absolute;
     top: 50%;
     transform: translate(0, 30%);
-}
 
+}
 
 .btn1 {
     width: 100%;
@@ -243,6 +246,7 @@ p.Channel-title {
     margin: 25px;
     /*border: #0c4128;*/
 }
+
 .move_box > img {
     position: absolute;
     top: 50%;

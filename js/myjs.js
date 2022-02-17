@@ -18,11 +18,11 @@ function moveit(id) {
     var img_obj = $("#"+id);
     var offset = img_obj.offset();
     var max_width = img_obj.parent().width();
-    var newLeft = offset.left + 1;
+    var newLeft = offset.left + 1 ;
     img_obj.animate({
         left:newLeft,
-    }, 100, function () {
-        if (newLeft > max_width + img_obj.width()) {
+    }, 1000, function () {
+        if (newLeft >= max_width ) {
             img_obj.css("left", -img_obj.width())
         }
         moveit(id);

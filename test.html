@@ -1,38 +1,47 @@
-<!DOCTYPE html>
-<html lang="ch">
-<head>
-    <meta charset="UTF-8">
-    <title>实现一组图片的循环滚动</title>
-    <style>
-         div { position: absolute; }
-    </style>
-    <script src="js/jquery.min.1.9.1.js"></script>
-    <script>
-        function moveit() {
-            var img_obj = $("#move1");
-            var offset = img_obj.offset();
-            var max_width = img_obj.parent().width();
-            t = 5;
-            var newLeft = offset.left + t;
-            if (newLeft > max_width - img_obj.width()) {
-                newLeft = 0;
-            }
+<form action="todo.php" method="post">
+  <div class="container">
+    <label for="userid"><b>用户名</b></label>
+    <input type="text" placeholder="输入用户名" name="uname" required>
 
-            img_obj.animate({
-                left:newLeft,
-            }, 10000, function () {
-                moveit();
-            });
-        }
+    <label for="pwd"><b>密码</b></label>
+    <input type="password" placeholder="输入密码" name="psw" required>
 
-        $(document).ready(function () {
-            moveit();
-        });
-    </script>
-</head>
-<body>
-<div id="move1">
-    <img  src="images/sticky-ad.jpg" alt="" href="#">
-</div>
-</body>
-</html>
+    <button type="submit">登录</button>
+  </div>
+
+
+
+
+<!-- <marquee style="width:600px;color:#0000ff;height:53px border="0" align="middle" scrolldelay="120">新版内网信息平台上线运行！在使用过程中如有任何困难或建议，请及时向统计信信科反馈！谢谢！</marquee> -->
+            <div class="header_top_user">
+              <span id="time" class="time">
+                <!-- S 用户登录 -->
+                <div id="_userlogin">
+                  <form name="userlogin" action="{dede:global.cfg_memberurl/}/index_do.php" method="POST">
+                    <input type="hidden" name="fmdo" value="login" />
+                    <input type="hidden" name="dopost" value="login" />
+                    <input type="hidden" name="keeptime" value="604800" />
+                    <span>用户名:</span>
+                    <input type="text" name="userid" size="10" class="ipt-txt" />
+                    <span>密码:</span>
+                    <input type="password" name="pwd" size="10" class="ipt-txt" />
+                    <!-- {dede:php}
+                      if(preg_match("#2#", $safe_gdopen)){
+                      echo '
+                      <span>验证码:</span>
+                      <input type="text" name="vdcode" size="8" class="ipt-txt" />
+                      <img id="vdimgck" align="absmiddle" style="cursor:pointer;margin-left:0px;text-transform:uppercase;" alt="看不清？点击更换" src="'.$cfg_cmspath.'/include/vdimgck.php"/>';}
+                    {/dede:php}  注意：若后台的其他选项中禁用前台使用php标签，则本段代码不执行，可用JS方式代替-->
+                    <script type="text/javascript">
+                      var verify = ','+'{dede:global.safe_gdopen/}'+',';
+                      if(verify.indexOf(',2,') >= 0){
+                        var str = '<div class="fb"><span>验证码:</span>';
+                        str += '<input type="text" name="vdcode" size="8" class="ipt-txt" />';
+                        str += '<img id="vdimgck" align="absmiddle" onClick="this.src=this.src+\'?\'" style="cursor:pointer;margin-left:0px;text-transform:uppercase;" alt="看不清？点击更换" src="{dede:global.cfg_cmspath/}/include/vdimgck.php"/></div>';
+                        document.write(str);
+                      }
+                    </script>
+                    <button type="submit" class="btn-1">登录</button>
+                  </form>
+                </div>
+                <script type="text/javascript">CheckLogin();</script>

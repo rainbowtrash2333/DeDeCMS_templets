@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" href="css/login.css">
     <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -280,6 +281,11 @@
             })
         }
 
+        function loginModal() {
+            $("#login-btn").click(function () {
+                $('#loginModal').modal('show');
+            })
+        }
 
         $(document).ready(function () {
             if (window.outerWidth > 1536) {
@@ -295,8 +301,7 @@
             moveit("move1");
             moveit("move2");
             moveit("move3");
-            moveit("move4");
-            moveit("move5");
+            loginModal();
 
         })
     </script>
@@ -382,7 +387,7 @@
             <div class="row clearfix">
                 <div class="col-md-12 col-lg-12 col-sm-12 ">
                     <ul class="list-group">
-                        <button type="button" class="btn btn-primary btn1" data-toggle="dropdown">
+                        <button id="login-btn" type="button" class="btn btn-primary btn1" data-toggle="dropdown">
                             登录
                         </button>
                         <div class="btn-group dropdown btn1">
@@ -484,7 +489,7 @@
                 <div class="row clearfix">
                     <!--    领导动态轮播-->
                     <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs ">
-                        <div id="carousel_leader" class="carousel slide">
+                        <div id="carousel_leader" class="carousel slide" >
                             <!-- 轮播（Carousel）指标 -->
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel_leader" data-slide-to="0" class="active"></li>
@@ -689,18 +694,13 @@
             <div class="move_box" id="move1" style="left: 0">
                 <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
             </div>
-            <div class="move_box" id="move2" style="left: 25%">
+            <div class="move_box" id="move2" style="left: 50%">
                 <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
             </div>
-            <div class="move_box" id="move3" style="left: 50%">
+            <div class="move_box" id="move3" style="left: 100%">
                 <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
             </div>
-            <div class="move_box" id="move4" style="left: 75%">
-                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
-            </div>
-            <div class="move_box" id="move5" style="left: 100%">
-                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
-            </div>
+
 
         </div>
 
@@ -725,6 +725,36 @@
 
 <hr style="   height: 1px;border: none; background-color: #CCCCCC">
 
+<!--登录框-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="loginLabel">
+                    登录
+                </h4>
+            </div>
+            <form id="" action="todo.php" method="post">
+                <div class="modal-body">
+                    <label for="userid"><b>用户名</b></label>
+                    <input type="text" class="form-control" placeholder="输入用户名" name="uname" required>
+                    <br>
+                    <label for="pwd"><b>密码</b></label>
+                    <input type="password" class="form-control" placeholder="输入密码" name="psw" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="login" type="submit" class="btn btn-primary" data-dismiss="modal">
+                        登录
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 <div class="feet-box">
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021-2022 Modify 中国银行保险监督管理委员会昭通监管分局</p>
