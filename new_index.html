@@ -9,6 +9,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+
     <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,7 +20,9 @@
     <![endif]-->
     <script src="js/jquery.min.1.9.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="js/myjs.js"></script>
+
     <style>
         .header-info {
             margin: 0;
@@ -50,7 +54,7 @@
             })
         }
 
-        //绑定领导动态轮播
+        //绑定轮播
         function bind_carousel() {
             var Carousel_leader = [
                 {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
@@ -165,18 +169,18 @@
         // 专门生成栏目文章类容，方便setChannelData生成数据
         function get_channel_contents() {
             var sub_2_1 = [
-                {name:"artist111", href:"#", date:new Date("2022-1-11")},
-                {name:"artist12", href:"#", date:new Date("2021-11-11")},
-                {name:"artist13", href:"#", date:new Date("2021-11-11")},
-                {name:"artist14", href:"#", date:new Date("2021-11-11")},
-                {name:"artist15", href:"#", date:new Date("2021-11-11")}
+                // {name:"artist111", href:"#", date:new Date("2022-1-11")},
+                // {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist15", href:"#", date:new Date("2021-11-11")}
             ]
             var sub_2_2 = [
-                {name:"artist21", href:"#", date:new Date("2021-11-11")},
-                {name:"artist22", href:"#", date:new Date("2021-11-11")},
-                {name:"artist23", href:"#", date:new Date("2021-11-11")},
-                {name:"artist24", href:"#", date:new Date("2021-11-11")},
-                {name:"artist25", href:"#", date:new Date("2021-11-11")}
+                // {name:"artist21", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist22", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist23", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist24", href:"#", date:new Date("2021-11-11")},
+                // {name:"artist25", href:"#", date:new Date("2021-11-11")}
             ]
             var sub_2_3 = [
                 {name:"artist21", href:"#", date:new Date("2021-11-11")},
@@ -286,6 +290,26 @@
             })
         }
 
+        function bind_footimg() {
+            var foot_imgs = [
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
+                {src:skin_root + "images/sticky-ad-lp.jpg", alt:"111", href:"/"},
+            ]
+
+            var obj = $("#foot-img-box").find(".move_box:first-child");
+            foot_imgs.forEach(function (element) {
+                var img = obj.find("img");
+                console.log(img.attr("class"))
+                element.src = element.src.split("-lp").join("")
+                img.attr("src", element.src);
+                img.attr("alt", element.alt);
+
+                img.attr("href", element.href);
+                obj = obj.next();
+            })
+        }
+
         $(document).ready(function () {
             if (window.outerWidth > 1536) {
                 document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1536
@@ -301,7 +325,7 @@
             moveit("move2");
             moveit("move3");
             loginModal();
-
+            bind_footimg();
         })
     </script>
 </head>
@@ -488,7 +512,7 @@
                 <div class="row clearfix">
                     <!--    领导动态轮播-->
                     <div class="col-lg-6 col-md-6 col-sm-6 hidden-xs ">
-                        <div id="carousel_leader" class="carousel slide" >
+                        <div id="carousel_leader" class="carousel slide">
                             <!-- 轮播（Carousel）指标 -->
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel_leader" data-slide-to="0" class="active"></li>
@@ -539,7 +563,7 @@
 
                         </div>
                     </div>
-                    <div id="channel-1" class="col-lg-6 col-md-6 col-sm-6 ">
+                    <div id="channel-1" class="col-lg-6 col-md-6 col-sm-6 channel-box">
                         <a href="#"><p class="Channel-title"><span class="glyphicon glyphicon-list-alt">&ensp;</span>
                             栏目1</p></a>
                         <ul class="list-group">
@@ -578,7 +602,7 @@
 
             <div id="channel-6" class="col-md-8  col-lg-8 col-sm-8 column channel_box">
                 <ul class="nav nav-tabs child-channel ">
-                    <li class="test active"><a target='_blank' href="#">子栏目1</a></li>
+                    <li class=" active"><a target='_blank' href="#">子栏目1</a></li>
                     <li class=""><a target='_blank' href="#">子栏目2</a></li>
                     <li class=""><a target='_blank' href="#">子栏目3</a></li>
 
@@ -687,17 +711,17 @@
             </div>
         </div>
     </div>
-
+    <!--    foot_img_box-->
     <div class="row clearfix">
         <div id="foot-img-box" class="col-lg-12 col-md-12 col-sm-12">
             <div class="move_box" id="move1" style="left: 0">
-                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+                <img class="img-thumbnail" src="" alt="" href="#">
             </div>
             <div class="move_box" id="move2" style="left: 50%">
-                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+                <img class="img-thumbnail" src="" alt="" href="#">
             </div>
             <div class="move_box" id="move3" style="left: 100%">
-                <img class="img-thumbnail" src="images/sticky-ad.jpg" alt="" href="#">
+                <img class="img-thumbnail" src="" alt="" href="#">
             </div>
 
 
@@ -758,7 +782,27 @@
 <div class="feet-box">
     <p class="text-center small" style="color: whitesmoke"> Copyright &copy; 2021-2022 Modify 中国银行保险监督管理委员会昭通监管分局</p>
 </div>
+<!--滑块-->
+<div id="slider">
+    滑动放大网页：<div id="green"></div>
+</div>
 <script type="text/javascript">
+    function refresh() {
+        document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 15360 * $("#green").slider("value");
+    }
+    $(function() {
+        $( " #green" ).slider({
+            orientation: "horizontal",
+            range: "min",
+            max: 15,
+            min:8,
+            value: 10,
+            slide: refresh,
+            change: refresh
+        });
+        $( "#green" ).slider( "value", 10 );
+        console.log( $("#green").slider("value"))
+    });
 </script>
 </body>
 </html>

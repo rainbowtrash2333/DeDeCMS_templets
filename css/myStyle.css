@@ -118,7 +118,7 @@ img.shadow {
 
 }
 
-#channel-1 > .list-group > a, #channel-2 > .list-group > a, #channel-3 > .list-group > a, #channel-4 > .list-group > a, #channel-5 > .list-group > a, #channel-6 > .list-group > a {
+.channel_box> .list-group > a {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -127,7 +127,8 @@ img.shadow {
 }
 
 .channel_box {
-    height: 315px;
+    /*height: 315px;*/
+    min-height: 305px;
     /*border: 1px solid blue;*/
 }
 
@@ -179,7 +180,7 @@ p.Channel-title {
     width: 12%;
     max-width: 350px;
     min-width: 200px;
-    z-index: 10;
+    z-index: 100;
 }
 
 /*.sticky-bar a {*/
@@ -262,3 +263,16 @@ p.Channel-title {
     top: 50%;
     transform: translate(0, -50%);
 }
+ #slider{
+     position: fixed; /* 设置fixed固定定位 */
+     bottom: 20px; /* 距离浏览器窗口下边框20px */
+     left: 20px; /* 距离浏览器窗口右边框20px */
+     /*top: 200px;*/
+     /*left: 20px;*/
+     width: 12%;
+     max-width: 350px;
+     min-width: 200px;
+     z-index: 100;
+}
+#green .ui-slider-range { background: #8ae234; }
+#green .ui-slider-handle { border-color: #8ae234; }
