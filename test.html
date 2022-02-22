@@ -1,54 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>jQuery UI 滑块（Slider） - 颜色选择器</title>
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <script src="/js/jquery.min.1.9.1.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
-    <style>
-        #red, #green, #blue {
-            float: left;
-            clear: left;
-            width: 300px;
-            margin: 15px;
-        }
-        #green .ui-slider-range { background: #8ae234; }
-        #green .ui-slider-handle { border-color: #8ae234; }
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Untitled Document</title>
+    <style type="text/css">
+        ul,li{list-style:none; margin:0; padding:0;}
+        .scroll{ width:500px; height:175px; overflow:hidden; border:1px solid #333; margin:50px auto 0;}
+        .scroll li{ width:500px; height:25px; line-height:25px; overflow:hidden;}
+        .scroll li a{ font-size:14px; font-family:"宋体";color:#333; text-decoration:none;}
+        .scroll li a:hover{ text-decoration:underline;}
     </style>
-    <script>
-
-        function refreshSwatch() {
-            document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 153600 * $("#green").slider("value");
-        }
-        $(function() {
-            $( " #green" ).slider({
-                orientation: "horizontal",
-                range: "min",
-                max: 400,
-                min:50,
-                value: 1,
-                slide: refreshSwatch,
-                change: refreshSwatch
-            });
-            $( "#green" ).slider( "value", 100 );
-        });
-    </script>
+    <script type="text/javascript" src="/js/jquery.min.1.9.1.js"></script>
 </head>
-<body class="ui-widget-content" style="border:0;">
-
-<p class="ui-state-default ui-corner-all ui-helper-clearfix" style="padding:4px;">
-    <span class="ui-icon ui-icon-pencil" style="float:left; margin:-2px 5px 0 0;"></span>
-    简单的颜色选择器
-</p>
-
-
-<div id="green"></div>
-
-
-
-
-
+<body>
+<div class="scroll">
+    <ul class="list">
+        <li><a href="#" target="_blank">1</a></li>
+        <li><a href="#" target="_blank">3</a></li>
+        <li><a href="#" target="_blank">4</a></li>
+        <li><a href="#" target="_blank">5</a></li>
+        <li><a href="#" target="_blank">6</a></li>
+        <li><a href="#" target="_blank">7</a></li>
+        <li><a href="#" target="_blank">8</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    function autoScroll(obj){
+        $(obj).find(".list").animate({
+            marginTop : "-25px"
+        },500,function(){
+            $(this).css({marginTop : "0px"}).find("li:first").appendTo(this);
+        })
+    }
+    $(function(){
+        setInterval('autoScroll(".scroll")',3000)
+    })
+</script>
 </body>
 </html>

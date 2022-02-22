@@ -56,3 +56,10 @@ function getCookie(cname) {
     }
     return "";
 }
+function autoScroll(obj){
+    $(obj).find(".list").animate({
+        marginTop : "-25px"
+    },700,function(){
+        $(this).css({marginTop : "0px"}).find("li:first").appendTo(this);
+    })
+}

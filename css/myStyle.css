@@ -118,7 +118,7 @@ img.shadow {
 
 }
 
-.channel_box> .list-group > a {
+.channel_box > .list-group > a {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -126,10 +126,49 @@ img.shadow {
 
 }
 
+.carousel-caption > h5 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .channel_box {
     /*height: 315px;*/
     min-height: 305px;
     /*border: 1px solid blue;*/
+}
+
+.scroll {
+    height: 225px;
+    overflow: hidden;
+
+}
+
+.scroll li {
+    line-height: 25px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border-style: none none dotted none;
+    border-width: 1px;
+    border-bottom-color: #aaaabb;
+    margin-top: 5px;
+    padding-bottom: 1px;
+
+}
+.scroll .list{
+    padding-left:0;margin-bottom:20px
+}
+.scroll li a {
+    text-overflow: ellipsis;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.scroll li a:hover {
+    text-decoration: underline;
 }
 
 .child-channel {
@@ -162,14 +201,7 @@ p.Channel-title {
     /*text-shadow: 0 1px  #0C2695;*/
 }
 
-#side-newest-content > .list-group-item {
-    border-style: none none dotted none;
-    border-width: 1px;
-    border-bottom-color: #aaaabb;
-    margin-top: 5px;
-    padding-bottom: 1px;
 
-}
 
 .sticky-bar {
     position: fixed; /* 设置fixed固定定位 */
@@ -263,16 +295,23 @@ p.Channel-title {
     top: 50%;
     transform: translate(0, -50%);
 }
- #slider{
-     position: fixed; /* 设置fixed固定定位 */
-     bottom: 20px; /* 距离浏览器窗口下边框20px */
-     left: 20px; /* 距离浏览器窗口右边框20px */
-     /*top: 200px;*/
-     /*left: 20px;*/
-     width: 12%;
-     max-width: 350px;
-     min-width: 200px;
-     z-index: 100;
+
+#slider {
+    position: fixed; /* 设置fixed固定定位 */
+    bottom: 20px; /* 距离浏览器窗口下边框20px */
+    left: 20px; /* 距离浏览器窗口右边框20px */
+    /*top: 200px;*/
+    /*left: 20px;*/
+    width: 12%;
+    max-width: 350px;
+    min-width: 200px;
+    z-index: 100;
 }
-#green .ui-slider-range { background: #8ae234; }
-#green .ui-slider-handle { border-color: #8ae234; }
+
+#green .ui-slider-range {
+    background: #8ae234;
+}
+
+#green .ui-slider-handle {
+    border-color: #8ae234;
+}
