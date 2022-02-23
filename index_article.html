@@ -27,10 +27,23 @@
             background-size: 100% auto;
             background: url("images/back_img.jpg") repeat-x;
         }
+
     </style>
     <script>
         var skin_root = "/"
-
+        function bind_breadcrumb(){
+        //<a href="http://127.0.0.1/">主页</a> &gt; <a href="/a/juwugongkai/">局务公开</a> &gt; <a href="/a/juwugongkai/lingdaojianghua/">领导讲话</a> &gt;
+            var dede_position = "{dede:field name='position'/}"
+            var position_list = dede_position.split('&gt;')
+            position_list.forEach(function (element){
+                console.log(element)
+            })
+        }
+        $(document).ready(function () {
+            if (window.outerWidth > 1536) {
+                document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1500
+            }
+        })
     </script>
 
 </head>
@@ -63,21 +76,24 @@
                         class="text-right glyphicon glyphicon-chevron-right"></span></button>
             </div>
         </div>
-        <div class="col-lg-8 col-sm-8 col-md-8" style="border: darkgray solid 1px">
-            <table class="table">
-
-                <tr class="active">
-                        <td ><a href="">文章1</a></td>
-                        <td ><p class=" text-right">时间</p></td>
-                </tr>
-                <tr class="success">
-                    <td ><a href="">文章1</a></td>
-
-                    <td><p class=" text-right">时间</p></td>
-                </tr>
-
-                </tbody>
-            </table>
+        <div class="col-lg-8 col-sm-8 col-md-8 article-list" style="border: darkgray solid 1px">
+           <ul class="list-group">
+               <li class="list-group-item">
+                   <a> <span class="badge badge-primary badge-date">time</span> fdfds</a>
+               </li>
+               <li class="list-group-item">
+                   <a>fdsafdsa</a>
+               </li>
+               <li class="list-group-item">
+                   <a>fdsafdsa</a>
+               </li>
+               <li class="list-group-item">
+                   <a>fdsafdsa</a>
+               </li>
+               <li class="list-group-item">
+                   <a>fdsafdsa</a>
+               </li>
+           </ul>
         </div>
     </div>
 </div>
