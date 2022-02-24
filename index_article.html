@@ -30,19 +30,72 @@
 
     </style>
     <script>
-        var skin_root = "/"
-        function bind_breadcrumb(){
-        //<a href="http://127.0.0.1/">主页</a> &gt; <a href="/a/juwugongkai/">局务公开</a> &gt; <a href="/a/juwugongkai/lingdaojianghua/">领导讲话</a> &gt;
+        function bind_articles() {
+            var articles = [
+                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                {name:"artist15", href:"#", date:new Date("2021-11-11")},
+                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                {name:"artist15", href:"#", date:new Date("2021-11-11")},
+                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                {name:"artist15", href:"#", date:new Date("2021-11-11")},
+                {name:"artist11", href:"#", date:new Date("2021-11-11")},
+                {name:"artist12", href:"#", date:new Date("2021-11-11")},
+                {name:"artist13", href:"#", date:new Date("2021-11-11")},
+                {name:"artist14", href:"#", date:new Date("2021-11-11")},
+                {name:"artist15", href:"#", date:new Date("2021-11-11")},
+            ]
+            $("#article_list").html(getArtistsListHtml(articles))
+        }
+
+        function bind_breadcrumb() {
             var dede_position = "{dede:field name='position'/}"
-            var position_list = dede_position.split('&gt;')
-            position_list.forEach(function (element){
-                console.log(element)
+            // var dede_position = "<a href=\"http://127.0.0.1/\">主页</a> > <a href=\"/a/juwugongkai/\">局务公开</a> > <a href=\"/a/juwugongkai/lingdaojianghua/\">领导讲话</a> >"
+            var position_list = dede_position.split(' >')
+            var html = "<li><a href=\"/\">首页</a></li>"
+            position_list.forEach(function (element) {
+                if (element.trim() !== '<a href="http://127.0.0.1/">主页</a>') {
+                    html += "<li>" + element.trim() + "</li>";
+
+                }
+                $("#location").html(html)
+
             })
         }
+
+        function bind_pagebox() {
+            $("#page-box ul").addClass("pagination");
+            $("#page-box a").addClass("page-link");
+            $("#page-box li").each(function (){
+                if($(this).children().length===0){
+                    var html = "<a class=\"page-link\" href=\"#\">" + $(this).text() + "</a>"
+                    $(this).html(html)
+                }else{
+                    $(this).addClass("page-item");
+                }
+            })
+        }
+
         $(document).ready(function () {
             if (window.outerWidth > 1536) {
                 document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1500
             }
+            bind_articles();
+            bind_breadcrumb();
+            bind_pagebox();
+            $("#channel_list").find("a").prepend("<span class=\"text-right glyphicon glyphicon-chevron-right\"></span>");
+            // console.log($(".current a").attr("href"))
+            $(".current a").css({"background-color":"#337ab7", "color":"#ffffff"});
+
+
         })
     </script>
 
@@ -62,38 +115,47 @@
 <div class="container ">
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-md-12">
-            <ul class="breadcrumb">
+            <ul id="location" class="breadcrumb">
                 <li><a href="#">首页</a></li>
-                <li><a href="#">2013</a></li>
-                <li class="active">十一月</li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-2 col-sm-2 col-md-2">
-            <div class="btn-group btn-group-sm">
-                <button type="button" class="btn  btn-default text-left"><span class="text-left">党史学习教育</span> <span
-                        class="text-right glyphicon glyphicon-chevron-right"></span></button>
-            </div>
+            <ul id="channel_list">
+
+                <li><a href='/a/1/'>1</a></li>
+                <li><a href='/a/2/'>2</a></li>
+                <li><a href='/a/22/'>22</a></li>
+                <li><a href='/a/33/'>33</a></li>
+                <li><a href='/a/3/'>3</a></li>
+                <li><a href='/a/4/'>4</a></li>
+                <li><a href='/a/44/'>44</a></li>
+                <li><a href='/a/55/'>55</a></li>
+                <li><a href='/a/5/'>5</a></li>
+                <li><a href='/a/66/'>66</a></li>
+                <li><a href='/a/6/'>6</a></li>
+                <li><a href='/a/7/'>7</a></li>
+                <li><a href='/a/juwugongkai/lingdaojianghua/'>领导讲话</a></li>
+
+            </ul>
         </div>
-        <div class="col-lg-8 col-sm-8 col-md-8 article-list" style="border: darkgray solid 1px">
-           <ul class="list-group">
-               <li class="list-group-item">
-                   <a> <span class="badge badge-primary badge-date">time</span> fdfds</a>
-               </li>
-               <li class="list-group-item">
-                   <a>fdsafdsa</a>
-               </li>
-               <li class="list-group-item">
-                   <a>fdsafdsa</a>
-               </li>
-               <li class="list-group-item">
-                   <a>fdsafdsa</a>
-               </li>
-               <li class="list-group-item">
-                   <a>fdsafdsa</a>
-               </li>
-           </ul>
+        <div class="col-lg-8 col-sm-8 col-md-8" style="border: darkgray solid 1px">
+            <ul class="list-group" id="article_list" style="margin:20px 0 20px 0">
+
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1  col-lg-8 col-sm-8" id="page-box">
+<!--            {dede:pagelist listitem="index,end,pre,next,pageno" listsize="2"/}-->
+            <ul>
+                <li>首页</li>
+                <li class="thisclass">1</li>
+                <li><a href="list_2_2.html">2</a></li>
+                <li><a href="list_2_2.html">下一页</a></li>
+                <li><a href="list_2_2.html">末页</a></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -141,7 +141,6 @@ img.shadow {
 .scroll {
     height: 225px;
     overflow: hidden;
-
 }
 
 .scroll li {
@@ -314,4 +313,34 @@ p.Channel-title {
 
 #green .ui-slider-handle {
     border-color: #8ae234;
+}
+
+#channel_list{
+    display:block;
+    margin: auto;
+    overflow: hidden;
+}
+#channel_list li{
+    position: relative;
+    display: block;
+    margin-bottom: 12px;
+
+
+}
+#channel_list a:hover{
+    background: #dddddd;
+  }
+#channel_list li a {
+    display:block;
+    height: 30px;
+    text-overflow: ellipsis;
+    color: black;
+    font-size: 14px;
+    font-weight: normal;
+    text-decoration: none;
+    letter-spacing: 2px;
+    padding: 6px 0 7px 0;
+    background-color: #ffffff;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
 }
