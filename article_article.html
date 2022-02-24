@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Twikura.com">
+    <title>{dede:global.cfg_webname/}</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/myStyle.css">
+    <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lte IE 9]>
+    <script src="{dede:global.cfg_templets_skin/}/js/html5shiv.min.js"></script>
+    <script src="{dede:global.cfg_templets_skin/}/js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/jquery.min.1.9.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/myjs.js"></script>
+    <style>
+        .header-info {
+            margin: 0;
+            width: 100%;
+            height: 150px;
+            background-size: 100% auto;
+            background: url("images/back_img.jpg") repeat-x;
+        }
+    </style>
+    <script>
+        function bind_breadcrumb() {
+            var dede_position = "{dede:field name='position'/}"
+            // var dede_position = "<a href=\"http://127.0.0.1/\">主页</a> > <a href=\"/a/juwugongkai/\">局务公开</a> > <a href=\"/a/juwugongkai/lingdaojianghua/\">领导讲话</a> >"
+            var position_list = dede_position.split(' >')
+            var html = "<li><a href=\"/\">首页</a></li>"
+            position_list.forEach(function (element,index) {
+                if (index!==0) {
+                    html += "<li>" + element.trim() + "</li>";
+
+                }
+                $("#location").html(html)
+
+            })
+        }
+        var skin_root = "{dede:global.cfg_templets_skin/}/"
+        $(document).ready(function () {
+            if (window.outerWidth > 1536) {
+                document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1536
+            }
+            bind_breadcrumb();
+        })
+    </script>
+
+</head>
+<body>
+<div class="jumbotron text-center  header-info">
+    <div class="container ">
+        <div class="row ">
+            <div class="col-lg-12 align-self-center mx-auto bg-white text-primary">
+                <h3 id="web-title">中国银行保险监督管理委员会昭通分局</h3>
+                <h5 id="web-title-en">China Banking And Insurance Regulatory Commission Of Zhaotong Branch</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container ">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <ul id="location" class="breadcrumb">
+                <li><a href="#">首页</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1 col-lg-8 col-md-8 col-sm-10">
+            <h1 class="text-center" style="font-family: SimSun,serif;font-size: 21px;font-weight: bolder">{dede:field.title/}</h1>
+            <br>
+            <div style="font-weight: lighter;color: #9d9d9d">
+                <p class="text-center">更新日期：{dede:field.pubdate function="MyDate('Y-m-d',@me)"/}   &emsp;  发布人：{dede:field name='writer' /}</p>
+            </div>
+            <hr>
+            <div id="article_content">{dede:field.body/}</div>
+        </div>
+    </div>
+
+</div>
+<!--滑块-->
+<div id="slider">
+    滑动放大网页：<div id="green"></div>
+</div>
+<script type="text/javascript">
+    function refresh() {
+        document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 15360 * $("#green").slider("value");
+    }
+    $(function() {
+        $( " #green" ).slider({
+            orientation: "horizontal",
+            range: "min",
+            max: 15,
+            min:8,
+            value: 10,
+            slide: refresh,
+            change: refresh
+        });
+        $( "#green" ).slider( "value", 10 );
+    });
+    $(function (){
+        $("#article_content img").addClass("img-thumbnail img-responsive");
+    })
+</script>
+</body>
+</html>

@@ -61,8 +61,8 @@
             // var dede_position = "<a href=\"http://127.0.0.1/\">主页</a> > <a href=\"/a/juwugongkai/\">局务公开</a> > <a href=\"/a/juwugongkai/lingdaojianghua/\">领导讲话</a> >"
             var position_list = dede_position.split(' >')
             var html = "<li><a href=\"/\">首页</a></li>"
-            position_list.forEach(function (element) {
-                if (element.trim() !== '<a href="http://127.0.0.1/">主页</a>') {
+            position_list.forEach(function (element,index) {
+                if (index!==0) {
                     html += "<li>" + element.trim() + "</li>";
 
                 }
@@ -70,7 +70,6 @@
 
             })
         }
-
         function bind_pagebox() {
             $("#page-box ul").addClass("pagination");
             $("#page-box a").addClass("page-link");
