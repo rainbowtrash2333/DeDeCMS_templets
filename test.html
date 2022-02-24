@@ -1,150 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="Twikura.com">
-    <title>Title</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/myStyle.css">
-    <!--    <link rel="stylesheet" href="css/font-awesome.min.css">-->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lte IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-    <script src="{dede:global.cfg_templets_skin/}/js/jquery.min.1.9.1.js"></script>
-    <script src="{dede:global.cfg_templets_skin/}/js/bootstrap.min.js"></script>
-    <script src="{dede:global.cfg_templets_skin/}/js/myjs.js"></script>
-    <style>
-        .header-info {
-            margin: 0;
-            width: 100%;
-            height: 150px;
-            background-size: 100% auto;
-            background: url("{dede:global.cfg_templets_skin/}/images/back_img.jpg") repeat-x;
-        }
-
-    </style>
-    <script>
-        function bind_articles() {
-            var articles = [
-                {name:"artist11", href:"#", date:new Date("2021-11-11")},
-                {name:"artist12", href:"#", date:new Date("2021-11-11")},
-                {name:"artist13", href:"#", date:new Date("2021-11-11")},
-                {name:"artist14", href:"#", date:new Date("2021-11-11")},
-                {name:"artist15", href:"#", date:new Date("2021-11-11")},
-                {name:"artist11", href:"#", date:new Date("2021-11-11")},
-                {name:"artist12", href:"#", date:new Date("2021-11-11")},
-                {name:"artist13", href:"#", date:new Date("2021-11-11")},
-                {name:"artist14", href:"#", date:new Date("2021-11-11")},
-                {name:"artist15", href:"#", date:new Date("2021-11-11")},
-                {name:"artist11", href:"#", date:new Date("2021-11-11")},
-                {name:"artist12", href:"#", date:new Date("2021-11-11")},
-                {name:"artist13", href:"#", date:new Date("2021-11-11")},
-                {name:"artist14", href:"#", date:new Date("2021-11-11")},
-                {name:"artist15", href:"#", date:new Date("2021-11-11")},
-                {name:"artist11", href:"#", date:new Date("2021-11-11")},
-                {name:"artist12", href:"#", date:new Date("2021-11-11")},
-                {name:"artist13", href:"#", date:new Date("2021-11-11")},
-                {name:"artist14", href:"#", date:new Date("2021-11-11")},
-                {name:"artist15", href:"#", date:new Date("2021-11-11")},
-            ]
-            $("#article_list").html(getArtistsListHtml(articles))
-        }
-
-        function bind_breadcrumb() {
-            var dede_position = "{dede:field name='position'/}"
-            // var dede_position = "<a href=\"http://127.0.0.1/\">主页</a> > <a href=\"/a/juwugongkai/\">局务公开</a> > <a href=\"/a/juwugongkai/lingdaojianghua/\">领导讲话</a> >"
-            var position_list = dede_position.split(' >')
-            var html = "<li><a href=\"/\">首页</a></li>"
-            position_list.forEach(function (element) {
-                if (element.trim() !== '<a href="http://127.0.0.1/">主页</a>') {
-                    html += "<li>" + element.trim() + "</li>";
-
-                }
-                $("#location").html(html)
-
-            })
-        }
-
-        function bind_pagebox() {
-            $("#page-box ul").addClass("pagination");
-            $("#page-box a").addClass("page-link");
-            $("#page-box li").each(function () {
-                if ($(this).children().length === 0) {
-                    var html = "<a class=\"page-link\" href=\"#\">" + $(this).text() + "</a>"
-                    $(this).html(html)
-                } else {
-                    $(this).addClass("page-item");
-                }
-            })
-        }
-
-        $(document).ready(function () {
-            if (window.outerWidth > 1536) {
-                document.getElementsByTagName('body')[0].style.zoom = window.outerWidth / 1500
-            }
-            bind_articles();
-            bind_breadcrumb();
-            bind_pagebox();
-            $("#channel_list").find("a").prepend("<span class=\"text-right glyphicon glyphicon-chevron-right\"></span>");
-            // console.log($(".current a").attr("href"))
-            $(".current a").css({"background-color":"#337ab7", "color":"#ffffff"});
-
-
-        })
-    </script>
-
-</head>
-<body>
-<div class="jumbotron text-center  header-info">
-    <div class="container ">
-        <div class="row ">
-            <div class="col-lg-12 align-self-center mx-auto bg-white text-primary">
-                <h3 id="web-title">中国银行保险监督管理委员会 ● 昭通分局</h3>
-                <h5 id="web-title-en">China Banking And Insurance Regulatory Commission Of Zhaotong Branch</h5>
-            </div>
-        </div>
-    </div>
-</div>
-<br>
-<div class="container ">
-    <div class="row">
-        <div class="col-lg-12 col-sm-12 col-md-12">
-            <ul id="location" class="breadcrumb">
-                <li><a href="#">首页</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-2 col-sm-2 col-md-2">
-            <ul id="channel_list">
-                {dede:channel currentstyle="
-                <li class='current'><a href='~typelink~'>~typename~</a></li>
-                "}
-                <li><a href='[field:typeurl/]'>[field:typename/]</a></li>
-                {/dede:channel}
-
-            </ul>
-        </div>
-        <div class="col-lg-8 col-sm-8 col-md-8" style="border: darkgray solid 1px">
-            <ul class="list-group" id="article_list" style="margin:20px 0 20px 0">
-
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-1  col-lg-8 col-sm-8" id="page-box">
-            {dede:pagelist listitem="index,end,pre,next,pageno" listsize="20"/}
-
-        </div>
-    </div>
-</div>
-
-
-</body>
-</html>
+<form name='form1' method='POST' action='index_do.php'>
+    <input type="hidden" name="fmdo" value="login">
+    <input type="hidden" name="dopost" value="login">
+    <input type="hidden" name="gourl" value="">
+    <ul>
+        <li> <span>用户名：</span>
+            <input id="txtUsername" class="text login_from" type="text" name="userid"/>
+        </li>
+        <li> <span>密&nbsp;&nbsp;&nbsp;码：</span>
+            <input id="txtPassword" class="text login_from2" type="password" name="pwd"/>
+        </li>
+        <li> <span>验证码：</span>
+            <input id="vdcode" class="text login_from3" type="text" style="width: 50px; text-transform: uppercase;" name="vdcode"/>
+            <img id="vdimgck" align="absmiddle" onclick="this.src=this.src+'?'" style="cursor: pointer;" alt="看不清？点击更换" src="../include/vdimgck.php"/>
+            看不清？ <a href="#" onclick="changeAuthCode();">点击更换</a> </li>
+        <li> <span>有效期：</span>
+            <input type="radio" value="2592000" name="keeptime" id="ra1"/>
+            <label for="ra1">一个月</label>
+            <input type="radio" checked="checked" value="604800" name="keeptime" id="ra2"/>
+            <label for="ra2">一周</label>
+            <input type="radio" value="86400" name="keeptime"  id="ra3"/>
+            <label for="ra3">一天</label>
+            <input type="radio" value="0" name="keeptime"  id="ra4"/>
+            <label for="ra4">即时</label></li>
+        <li>
+            <button id="btnSignCheck" class="button2" type="submit">登&nbsp;录</button>
+            <a href="resetpassword.php">忘记密码？</a> </li>
+    </ul>
+</form>

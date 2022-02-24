@@ -286,7 +286,8 @@
 
         function loginModal() {
             $("#login-btn").click(function () {
-                $('#loginModal').modal('show');
+                // $('#loginModal').modal('show');
+                window.location.href="{dede:global.cfg_cmspath/}/member/index.php";
             })
         }
 
@@ -304,7 +305,6 @@
                 element.src = element.src.split("-lp").join("")
                 img.attr("src", element.src);
                 img.attr("alt", element.alt);
-
                 img.attr("href", element.href);
                 obj = obj.next();
             })
@@ -727,28 +727,38 @@
                     登录
                 </h4>
             </div>
-            <form id="" action="todo.php" method="post">
+            <form id="login_form" action="/member/index_do.php" method="post">
                 <div class="modal-body">
+                    <input type="hidden" name="fmdo" value="login">
+                    <input type="hidden" name="dopost" value="login">
+                    <input type="hidden" name="gourl" value="">
                     <label for="userid"><b>用户名</b></label>
-                    <input type="text" class="form-control" placeholder="输入用户名" name="uname" required>
+                    <input id="userid" type="text" class="form-control" placeholder="输入用户名" name="userid" required>
                     <br>
                     <label for="pwd"><b>密码</b></label>
-                    <input type="password" class="form-control" placeholder="输入密码" name="psw" required>
+                    <input id="pwd" type="password" class="form-control" placeholder="输入密码" name="psw" required>
                 </div>
-
+                <li> <span>验证码：</span>
+                    <input id="vdcode" class="text login_from3" type="text" style="width: 50px; text-transform: uppercase;" name="vdcode"/>
+                    <img id="vdimgck" align="absmiddle" onclick="this.src=this.src+'?'" style="cursor: pointer;" alt="看不清？点击更换" src="../include/vdimgck.php"/>
+                    看不清？ <a href="#" onclick="changeAuthCode();">点击更换</a> </li>
                 <div class="modal-footer">
                     <button id="login" type="submit" class="btn btn-primary" data-dismiss="modal">
                         登录
                     </button>
                 </div>
             </form>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 <!--    <p>导航链接：</p>-->
 <div class="container" id="friend_link">
     <div class="row clearfix">
-        <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
+        <div class="col-lg-1 col-md-1 col-sm-1 ">
+            <button  class="btn btn-info" id="login-btn">
+                <span class="glyphicon glyphicon-globe" ></span> 登录
+            </button>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2">
             <div class="btn-group dropup">
