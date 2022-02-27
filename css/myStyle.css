@@ -56,10 +56,21 @@ hr {
 
 .badge.badge-date {
     font-weight: lighter;
-    font-size: 5px;
+    /*font-size: 10px;*/
     position: relative;
     top: 100%;
     transform: translateY(30%);
+}
+
+
+.badge-new{
+    /*color: red;*/
+    background-color:mediumvioletred;
+    font-weight: lighter;
+    /*font-size: 10px;*/
+    position: relative;
+    left: 50%;
+    /*transform: translateY(-10%);*/
 }
 
 .list-group-horizontal .list-group-item {
