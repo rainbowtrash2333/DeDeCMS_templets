@@ -255,15 +255,16 @@ p.Channel-title {
 }
 
 #carousel_leader img, #carousel_timeline img {
-    max-width: 300px;
-    max-height: 200px;
+    max-width: 550px;
+    max-height: 250px;
 
 }
 
 #carousel_leader, #carousel_timeline {
     position: absolute;
     top: 50%;
-    transform: translate(0, 30%);
+    left: 10%;
+    transform: translate(0, 20%);
 
 }
 
