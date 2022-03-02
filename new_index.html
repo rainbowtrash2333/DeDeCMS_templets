@@ -38,8 +38,15 @@
         //网站图片、广告参数
         function setObjAttrs() {
             var attrs = [
-                {obj:$('#body_ad1'), attrs:{href:"#"}},
-                {obj:$('#body_img_ad1'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                {obj:$('#topic_1 a'), attrs:{href:"http://baidu.com"}},
+                {obj:$('#topic_1 img'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                {obj:$('#topic_1 h2'), attrs:{text:"专题1：十九届六中全会学习专栏"}},
+                {obj:$('#topic_2 a'), attrs:{href:"http://baidu.com"}},
+                {obj:$('#topic_2 img'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                {obj:$('#topic_2 h2'), attrs:{text:"专题2：作风大提升专栏"}},
+                {obj:$('#topic_3 a'), attrs:{href:"http://baidu.com"}},
+                {obj:$('#topic_3 img'), attrs:{src:skin_root + "images/xuexiqiangguo.jpg", alt:"学习强国"}},
+                {obj:$('#topic_3 h2'), attrs:{text:"专题3：营商环境大提升"}},
                 {obj:$('#side_ad1'), attrs:{href:"#"}},
                 {obj:$('#side_ad2'), attrs:{href:"#"}},
                 {obj:$('#side_ad3'), attrs:{href:"#"}},
@@ -49,7 +56,11 @@
             ]
             attrs.forEach(function (element) {
                 for (var key in element.attrs) {
-                    element.obj.attr(key, element.attrs[key])
+                    if(key==='text'){
+                        element.obj.text(element.attrs[key])
+                    }else{
+                        element.obj.attr(key, element.attrs[key])
+                    }
                 }
             })
         }
@@ -499,14 +510,10 @@
             <!--                栏目2-->
 
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 hidden-sm"
-                     style="position: relative;margin-top: 25px ;padding-bottom: 30px">
-                    <!--                    <a id="body_ad1">-->
-                    <!--                        <img id="body_img_ad1" class="img-rounded shadow" style="padding: 0" width="100%" alt="" src="">-->
-                    <!--                    </a>-->
-                    <div style="width: 100%;height: 95px;background: green">
-                        <h2 class="text-center">专题1：十九届六中全会学习专栏</h2>
-                    </div>
+                <div id="topic_1" class="col-lg-12 col-md-12 hidden-sm topic">
+                    <a><img class="img-rounded shadow img-responsive" alt="" src="">
+                        <h2></h2>
+                    </a>
                 </div>
             </div>
             <div id="channel-2" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
@@ -537,14 +544,10 @@
             </div>
 
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12  hidden-sm"
-                     style="position: relative;margin-top: 25px ;padding-bottom: 30px">
-                    <!--                    <a id="body_ad1">-->
-                    <!--                        <img id="body_img_ad1" class="img-rounded shadow" style="padding: 0" width="100%" alt="" src="">-->
-                    <!--                    </a>-->
-                    <div style="width: 100%;height: 95px;background: green">
-                        <h2 class="text-center">专题2：营商环境大提升</h2>
-                    </div>
+                <div id="topic_2" class="col-lg-12 col-md-12 hidden-sm topic">
+                    <a><img class="img-rounded shadow img-responsive" alt="" src="">
+                        <h2></h2>
+                    </a>
                 </div>
             </div>
 
@@ -559,13 +562,11 @@
 
                 </ul>
             </div>
-            <div class="col-lg-12 col-md-12  hidden-sm"
-                 style="position: relative;margin-top: 25px ;padding-bottom: 30px">
-                <!--                    <a id="body_ad1">-->
-                <!--                        <img id="body_img_ad1" class="img-rounded shadow" style="padding: 0" width="100%" alt="" src="">-->
-                <!--                    </a>-->
-                <div style="width: 100%;height: 95px;background: green">
-                    <h2 class="text-center">专题3：作风大提升专栏</h2>
+            <div class="row clearfix">
+                <div id="topic_3" class="col-lg-12 col-md-12 hidden-sm topic">
+                    <a><img class="img-rounded shadow img-responsive" alt="" src="">
+                        <h2></h2>
+                    </a>
                 </div>
             </div>
             <div id="channel-7" class="col-md-4 col-lg-4 col-sm-6 column channel_box">
